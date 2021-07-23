@@ -4,8 +4,9 @@
   "description": "A basic header for websites.",
   "main": "index.js",
   "scripts": {
-    "build": "npx gulp",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npx gulp build",
+    "test": "npx gulp build; npx @11ty/eleventy",
+    "serve": "npx gulp build; npx @11ty/eleventy --serve"
   },
   "author": "Dylan Awalt-Conley",
   "license": "ISC",
@@ -15,6 +16,8 @@
     "@babel/preset-env": "^7.14.8",
     "eslint": "^7.31.0",
     "gulp": "^4.0.2",
-    "gulp-babel": "^8.0.0"
+    "gulp-babel": "^8.0.0",
+    "gulp-sass": "^5.0.0",
+    "sass": "^1.36.0"
   }
 }

@@ -1,0 +1,220 @@
+$theme: light; // auto-determine if null
+
+$height: 56px;
+$padding: 60px;
+$link-padding: 15px;
+$logo-padding: 3px;
+$mq: 600px;
+$transition: .3s;
+
+$text-color: #333;
+$bg-color: #fff;
+$fallback-color: null;
+
+@if $theme == light {
+    $fallback-color: black;
+} @else if $theme == dark {
+    $fallback-color: white;
+} @else {
+    @error "Theme must be either 'light' or 'dark', was '#{$theme}'.";
+}
+
+$bg-color-dark: rgba($text-color or black, 0.16);
+@if $bg-color {
+    $bg-color-dark: mix($text-color or black, $bg-color, 16%);
+}
+
+@mixin flex-row($align: null) {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    -webkit-box-align: $align;
+    align-items: $align;
+}
+
+.header {
+    position: relative;
+    width: 100%;
+    height: $height;
+    padding-left: $padding;
+    padding-right: $padding;
+    text-align: left;
+    color: $text-color; // or inherit
+    background-color: $bg-color; // or inherit
+    // -webkit-font-smoothing: subpixel-antialiased;
+    // -moz-osx-font-smoothing: auto;
+    // z-index: 9;
+
+    @media screen and (max-width: $mq) {
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+
+    &, & * {
+        box-sizing: border-box;
+    }
+
+    & a {
+        text-decoration: none;
+        color: inherit;
+        // color: $text-color;
+        // fill: $text-color;
+    }
+
+    &__nav {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+
+        @media screen and (min-width: $mq + 1px) {
+            @include flex-row();
+        }
+
+        // &:target {
+        //     &__mobile-buttons-open {
+        //         display: none;
+        //     }
+        //
+        //     &__mobile-buttons-close {
+        //         display: unset;
+        //     }
+        // }
+    }
+
+    &__mobile {
+        @include flex-row();
+        height: 100%;
+        padding-left: $padding;
+        padding-right: $padding;
+
+        @media screen and (max-width: $mq) {
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+    }
+
+    &__logo {
+        @include flex-row(center);
+        margin-right: auto;
+        height: 100%;
+        padding-top: $logo-padding;
+        padding-bottom: $logo-padding;
+        // color: inherit;
+        // // color: $text-color;
+        // // fill: $text-color;
+        // text-decoration: none;
+
+        &-img {
+            display: block;
+            height: 100%;
+        }
+    }
+
+    &__mobile-buttons {
+        @include flex-row(center);
+        margin-left: auto;
+        height: 100%;
+
+        @media screen and (min-width: $mq) {
+            display: none;
+        }
+
+        &-open, &-close {
+            // text-decoration: none;
+            // color: inherit;
+            // // color: $text-color;
+            // // fill: $text-color;
+        }
+
+        &-close--hide {
+            display: none;
+        }
+
+        @at-root .header__nav:target &-open--target {
+            display: none;
+        }
+
+        @at-root .header__nav:not(:target) &-close--target {
+            display: none;
+        }
+    }
+
+    &__links {
+        margin-left: auto;
+        height: 100%;
+        background-color: $bg-color;
+        overflow: hidden;
+        -webkit-transition-duration: $transition;
+        transition-duration: $transition; // should change based on js or pure css
+        transition-property: max-height;
+        transition-timing-function: ease-out;
+
+        @media screen and (min-width: $mq + 1px) {
+            @include flex-row();
+            overflow: visible;
+        }
+
+        @at-root .header__nav:target &--target {
+            max-height: 100vw;
+        }
+    }
+
+    &__link {
+        display: block;
+        height: 100%;
+        padding-left: $link-padding;
+        padding-right: $link-padding;
+        // text-decoration: none;
+        // color: inherit;
+        // // color: $text-color;
+        // // fill: $text-color;
+        white-space: nowrap;
+        background-color: $bg-color;
+        transition-property: background-color;
+        transition-duration: $transition; // different variable for link transitions
+
+        @media screen and (min-width: $mq + 1) {
+            @include flex-row(center);
+            cursor: pointer;
+        }
+
+        &-container {
+            position: relative;
+
+            @media screen and (max-width: $mq) {
+                &:not(:hover) .header__dropdown {
+                    display: none;
+                }
+            }
+        }
+
+        &--hover:hover, &-container:hover &--dropdown-hover {
+            background-color: $bg-color-dark;
+        }
+
+        @media screen and (max-width: $mq) {
+            // possible this should *not* apply to --sub-link
+            background-color: $bg-color-dark;
+
+            &--hover:hover {
+                background-color: mix($text-color or black, $bg-color-dark, 16%);
+            }
+        }
+
+        &--sub-link {
+            height: $height;
+        }
+    }
+
+    &__dropdown {
+        min-width: 100%;
+
+        @media screen and (min-width $mq + 1px) {
+            position: absolute;
+            top: 100%;
+            left: 0;
+        }
+    }
+}
