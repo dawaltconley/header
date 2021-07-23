@@ -1,0 +1,64 @@
+<header id="header" class="dark relative full-width header-height wrapper-padding padding-0-lt-header text-left font-smoothing-normal z-9" data-menu data-fixed-header>
+
+  <nav id="site-nav" class="flex-row-gt-header full-size target">
+    <div class="flex-row full-height wrapper-padding padding-0-gt-header">
+      {% if not include.center %}
+        <a class="flex-row flex-align-center margin-auto-r full-height padding-xxs-v subtle-icon fill-color-theme-text" href="{{ site.baseurl }}/">
+          {% include acme-logos/logo-8.svg class="full-height" %}
+        </a>
+      {% endif %}
+
+      <div class="hide-gt-header flex-row flex-align-center margin-auto-l full-height">
+        <a href="#site-nav" class="target-hide subtle-icon" data-menu-button="open">
+          Menu&nbsp;<i class="fa fa-bars fa-fw fa-lg"></i>
+        </a>
+        <a href="#" class="target-display subtle-icon" data-class-add="hidden" data-menu-button="close">
+          Close&nbsp;<i class="fa fa-times fa-fw fa-lg"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="flex-row-gt-header margin-auto-l full-height target-max-height-expand theme-bg overflow-v overflow-h-lt-header t-default t-long" data-menu-links data-class-rm="t-long">
+      {% for link in site.data.header %}
+        {% for doc in site.pages %}
+          {% set match = nil %}
+          {% if link.page == doc.inputPath %}
+            {% set match = doc %}
+            {% break %}
+          {% endif %}
+        {% endfor %}
+
+        {% if link.dropdown %}
+        <div class="relative hover">
+        {% endif %}
+
+          <a class="block flex-row-gt-header flex-align-center full-height padding-s-h subtle-icon no-wrap {% if not link.dropdown %} hover {% endif %} hover-shade hover-shade-dark-lt-header t-short cursor-pointer-gt-header" {% if match %} href="{{ match.url | prepend: site.baseurl }}" {% endif %} data-menu-link>
+            {{ link.text }}
+          </a>
+
+          {% if link.dropdown %}
+            <div class="absolute-gt-header pos-0-l pos-full-t full-width-min hover-display-gt-header" data-menu-dropdown>
+              {% for sub_link in link.dropdown %}
+                {% for doc in site.pages %}
+                  {% set match = nil %}
+                  {% if sub_link.page == doc.inputPath %}
+                    {% set match = doc %}
+                    {% break %}
+                  {% endif %}
+                {% endfor %}
+
+                <a class="block flex-row-gt-header flex-align-center theme-bg header-height padding-s-h subtle-icon no-wrap hover hover-shade-dark t-short" {% if match %} href="{{ match.url | prepend: site.baseurl }}" {% endif %} data-menu-link>
+                  {{ sub_link.text }}
+                </a>
+
+              {% endfor %}
+            </div>
+          </div>
+        {% endif %}
+
+      {% endfor %}
+
+    </div>
+  </nav>
+
+</header>
