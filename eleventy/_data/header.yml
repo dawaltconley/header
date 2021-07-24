@@ -1,0 +1,8 @@
+links:
+  - text: Home
+    page: '/'
+  - text: About
+    page: '/about/'
+logo:
+  src: 'http://pigment.github.io/fake-logos/logos/small/color/greens-food-suppliers.png'
+  alt: Greens Food Suppliers
