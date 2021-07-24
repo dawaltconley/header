@@ -17,7 +17,7 @@ const dotCompile = async () => {
     return fs.promises.writeFile('dist/template.js', template);
 };
 
-const jsCompile = () => gulp.src('src/header.js')
+const jsCompile = () => gulp.src('src/*.js')
     .pipe(babel({
         presets: [ '@babel/preset-env' ]
     }))
