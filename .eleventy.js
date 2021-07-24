@@ -1,4 +1,3 @@
-const fs = require('fs');
 const path = require('path');
 const p = (...args) => path.join(__dirname, ...args);
 const yaml = require('js-yaml');
@@ -17,5 +16,5 @@ module.exports = eleventyConfig => {
             output: './eleventy/_site',
         },
         htmlTemplateEngine: 'njk'
-    }
-}
+    };
+};
