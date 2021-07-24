@@ -1,3 +1,5 @@
+const fs = require('fs');
+const dot = require('dot');
 const gulp = require('gulp');
 const babel = require('gulp-babel');
 const sass = require('gulp-sass')(require('sass'));
@@ -9,12 +11,18 @@ const sassCompile =() => gulp.src('src/header.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('dist'));
 
+const dotCompile = async () => {
+    let template = await fs.promises.readFile('src/header.jst');
+    template = 'module.exports = ' + dot.template(template).toString();
+    return fs.promises.writeFile('dist/dot.js', template);
+};
+
 const jsCompile = () => gulp.src('src/header.js')
     .pipe(babel({
         presets: [ '@babel/preset-env' ]
     }))
     .pipe(gulp.dest('dist'));
 
-const buildPackage = gulp.parallel(html, sassCompile, jsCompile);
+const buildPackage = gulp.parallel(html, dotCompile, sassCompile, jsCompile);
 
 exports.build = buildPackage;
