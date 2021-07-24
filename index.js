@@ -1,6 +1,6 @@
 const path = require('path');
 const p = (...args) => path.join(__dirname, ...args);
-const headerTemplate = require(p('dist', 'dot.js'));
+const headerTemplate = require(p('dist', 'template.js'));
 
 module.exports = eleventyConfig => {
     eleventyConfig.addNunjucksShortcode('header', (links, logo=undefined, opts={}) => {

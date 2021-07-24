@@ -14,7 +14,7 @@ const sassCompile =() => gulp.src('src/header.scss')
 const dotCompile = async () => {
     let template = await fs.promises.readFile('src/header.jst');
     template = 'module.exports = ' + dot.template(template).toString();
-    return fs.promises.writeFile('dist/dot.js', template);
+    return fs.promises.writeFile('dist/template.js', template);
 };
 
 const jsCompile = () => gulp.src('src/header.js')
