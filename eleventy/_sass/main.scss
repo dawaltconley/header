@@ -9,7 +9,7 @@
     line-height: 2.2;
     z-index: 9;
 
-    @include header.header-styles();
+    @include header.styles();
 
     &__link {
         $padding: 15px;
