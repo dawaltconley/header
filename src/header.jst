@@ -1,7 +1,8 @@
 {{ var name = it.name || 'header'; }}
+{{ var classList = (...args) => [].concat(...args).filter(c => c && c.length).join(' '); }}
 
 {{## def.link:
-  <a class="{{= [ `${name}__link` ].concat(linkClass || []).join(' ') }}" href="{{=link.page}}" data-menu-link>
+  <a class="{{! classList(`${name}__link`, linkClass) }}" href="{{=link.page}}" data-menu-link>
     {{=link.text}}
   </a>
 #}}
@@ -32,7 +33,7 @@
   {{?}}
 #}}
 
-<header id="{{=name}}" class="{{=name}}" data-menu data-fixed-header>
+<header id="{{=name}}" class="{{! classList(name, it.classes) }}" data-menu data-fixed-header>
   <nav id="site-nav" class="{{=name}}__nav">
     <div class="{{=name}}__mobile">
       {{? it.logo }}
