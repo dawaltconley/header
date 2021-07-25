@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fsp = require('fs').promises;
 const dot = require('dot');
 const gulp = require('gulp');
 const babel = require('gulp-babel');
@@ -12,9 +12,12 @@ const sassCopy = () => gulp.src('src/sass/*')
     .pipe(gulp.dest('dist'));
 
 const dotCompile = async () => {
-    let template = await fs.promises.readFile('src/header.jst');
-    template = 'module.exports = ' + dot.template(template).toString();
-    return fs.promises.writeFile('dist/template.js', template);
+    let template = await fsp.readFile('src/header.jst');
+    let module = 'module.exports = ' + dot.template(template).toString();
+    return Promise.all([
+        fsp.writeFile('dist/template.jst', template),
+        fsp.writeFile('dist/template.js', module)
+    ]);
 };
 
 const jsCompile = () => gulp.src('src/*.js')
