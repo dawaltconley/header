@@ -182,7 +182,7 @@
             cursor: pointer;
         }
 
-        &--hover:hover, &-container:hover &--dropdown-hover {
+        &:hover, &-container:hover &--dropdown-hover {
             background-color: $bg-color-dark;
         }
 
@@ -190,7 +190,7 @@
             height: auto;
             background-color: $bg-color-dark;
 
-            &--hover:hover {
+            &:hover {
                 background-color: mix(is-color($text-color) or $fallback-color, $bg-color-dark, 16%);
             }
         }

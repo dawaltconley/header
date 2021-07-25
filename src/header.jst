@@ -8,12 +8,12 @@
 #}}
 
 {{## def.topLink:
-  {{ var linkClass = `${name}__link--${isDropdown ? 'dropdown-hover' : 'hover'}`; }}
+  {{ var linkClass = isDropdown && '${name}__link--dropdown-hover'; }}
   {{# def.link }}
 
   {{? isDropdown }}
     <div class="{{!name}}__dropdown" data-menu-dropdown>
-      {{ linkClass = `${name}__link--hover ${name}__link--sub-link`; }}
+      {{ linkClass = `${name}__link--sub-link`; }}
       {{~ link.dropdown :link }}
         {{# def.link }}
       {{~}}
@@ -49,7 +49,7 @@
       {{~ it.links :link }}
         {{ var isDropdown = link.dropdown && link.dropdown.length; }}
         {{? isDropdown }}
-          <div class="{{!name}}__link-container hover">
+          <div class="{{!name}}__link-container">
             {{# def.topLink }}
           </div>
         {{??}}
