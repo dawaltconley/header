@@ -7,6 +7,7 @@ module.exports = eleventyConfig => {
     eleventyConfig.addPassthroughCopy('dist');
     eleventyConfig.addPassthroughCopy('eleventy/css');
     eleventyConfig.addWatchTarget('eleventy/css/**/*.css');
+    eleventyConfig.addWatchTarget('eleventy/_sass/**/*.scss');
 
     // add YAML support
     eleventyConfig.addDataExtension('yml', data => yaml.safeLoad(data));

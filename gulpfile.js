@@ -30,7 +30,7 @@ exports.build = buildPackage;
 
 const eleventySass = () => gulp.src('eleventy/_sass/*.scss')
     .pipe(sass().on('error', sass.logError))
-    .pipe(gulp.dest('eleventy/css/sass'));
+    .pipe(gulp.dest('eleventy/_site/css/sass'));
 
 const eleventyWatch = () => {
     gulp.watch('src/_header.scss', gulp.series(sassCompile, eleventySass));
