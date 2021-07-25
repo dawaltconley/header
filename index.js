@@ -3,17 +3,12 @@ const path = require('path');
 const p = (...args) => path.join(__dirname, ...args);
 const headerTemplate = require(p('dist', 'template.js'));
 
-const buildHeader = function(kwargs) {
-    if (kwargs && kwargs.__keywords !== true)
-        throw new Error('Header tag only takes kwargs; found positional arg.');
-
-    let opts = {
+const buildHeader = function(opts={}) {
+    return headerTemplate({
         links: [],
         name: 'header',
-        ...kwargs
-    };
-
-    return headerTemplate(opts);
+        ...opts
+    });
 };
 
 module.exports.eleventy = (eleventyConfig) => {
