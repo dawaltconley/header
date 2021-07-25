@@ -2,7 +2,7 @@
 {{ var classList = (...args) => [].concat(...args).filter(c => c && c.length).join(' '); }}
 
 {{## def.link:
-  <a class="{{! classList(`${name}__link`, linkClass) }}" href="{{=link.page}}" data-menu-link>
+  <a class="{{! classList(`${name}__link`, linkClass) }}" href="{{!link.page}}" data-menu-link>
     {{=link.text}}
   </a>
 #}}
@@ -13,7 +13,7 @@
   {{# def.link }}
 
   {{? isDropdown }}
-    <div class="{{=name}}__dropdown" data-menu-dropdown>
+    <div class="{{!name}}__dropdown" data-menu-dropdown>
       {{ linkClass = `${name}__link-sub-link`; }}
       {{~ link.dropdown :link }}
         {{# def.link }}
@@ -25,7 +25,7 @@
 {{## def.topLink:
   {{ var isDropdown = link.dropdown && link.dropdown.length; }}
   {{? isDropdown }}
-    <div class="{{=name}}__link-container hover">
+    <div class="{{!name}}__link-container hover">
       {{# def.topLink }}
     </div>
   {{??}}
@@ -33,30 +33,30 @@
   {{?}}
 #}}
 
-<header id="{{=name}}" class="{{! classList(name, it.classes) }}" data-menu data-fixed-header>
-  <nav id="site-nav" class="{{=name}}__nav">
-    <div class="{{=name}}__mobile">
+<header id="{{!name}}" class="{{! classList(name, it.classes) }}" data-menu data-fixed-header>
+  <nav id="site-nav" class="{{!name}}__nav">
+    <div class="{{!name}}__mobile">
       {{? it.logo }}
-        <a class="{{=name}}__logo" href="/">
+        <a class="{{!name}}__logo" href="/">
           {{? it.logo.src }}
-            <img class="{{=name}}__logo-img" itemprop="logo" src="{{=it.logo.src}}" alt="{{= it.logo.alt || '' }}">
+            <img class="{{!name}}__logo-img" itemprop="logo" src="{{!it.logo.src}}" alt="{{! it.logo.alt || '' }}">
           {{?? it.logo }}
             {{=it.logo}}
           {{?}}
         </a>
       {{?}}
 
-      <div class="{{=name}}__mobile-buttons">
-        <a href="#site-nav" class="{{=name}}__mobile-buttons-open {{=name}}__mobile-buttons-open--target" data-menu-button="open">
+      <div class="{{!name}}__mobile-buttons">
+        <a href="#site-nav" class="{{!name}}__mobile-buttons-open {{!name}}__mobile-buttons-open--target" data-menu-button="open">
           Menu&nbsp;<i class="fa fa-bars fa-fw fa-lg"></i>
         </a>
-        <a href="#" class="{{=name}}__mobile-buttons-close {{=name}}__mobile-buttons-close--target" data-class-add="hidden" data-menu-button="close">
+        <a href="#" class="{{!name}}__mobile-buttons-close {{!name}}__mobile-buttons-close--target" data-class-add="hidden" data-menu-button="close">
           Close&nbsp;<i class="fa fa-times fa-fw fa-lg"></i>
         </a>
       </div>
     </div>
 
-    <div class="{{=name}}__links {{=name}}__links--target t-long" data-menu-links data-class-rm="t-long">
+    <div class="{{!name}}__links {{!name}}__links--target t-long" data-menu-links data-class-rm="t-long">
       {{~ it.links :link }}
         {{# def.topLink }}
       {{~}}
