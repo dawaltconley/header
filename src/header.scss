@@ -1,0 +1,5 @@
+@use 'sass/header';
+
+.header {
+    @include header.header-styles();
+}

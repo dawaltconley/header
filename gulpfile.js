@@ -7,9 +7,11 @@ const sass = require('gulp-sass')(require('sass'));
 const html = () => gulp.src('src/header.njk')
     .pipe(gulp.dest('dist'));
 
-const sassCompile = () => gulp.src('src/_header.scss')
-    .pipe(gulp.dest('dist'))
+const sassCompile = () => gulp.src('src/header.scss')
     .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('dist'));
+
+const sassCopy = () => gulp.src('src/sass/*')
     .pipe(gulp.dest('dist'));
 
 const dotCompile = async () => {
@@ -24,7 +26,7 @@ const jsCompile = () => gulp.src('src/*.js')
     }))
     .pipe(gulp.dest('dist'));
 
-const buildPackage = gulp.parallel(html, dotCompile, sassCompile, jsCompile);
+const buildPackage = gulp.parallel(html, dotCompile, sassCompile, sassCopy, jsCompile);
 
 exports.build = buildPackage;
 

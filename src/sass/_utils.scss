@@ -1,0 +1,26 @@
+@use 'sass:meta';
+@use 'sass:list';
+@use 'sass:math';
+
+@function is-color($v) {
+    @return meta.type-of($v) == color;
+}
+
+@function nth-or($list, $n, $or: null) {
+    @return $list and list.length($list) >= $n and list.nth($list, $n) or $or;
+}
+
+@function plus-one($n) {
+    $test: meta.type-of($n) == number and math.compatible($n, 1px);
+    @return if($test, $n + 1px, calc(#{$n} + 1px));
+}
+
+@mixin flex-row($align: null) {
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row;
+    -webkit-box-align: $align;
+    align-items: $align;
+}

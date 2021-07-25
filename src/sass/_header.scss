@@ -1,52 +1,27 @@
-@use 'sass:meta';
-@use 'sass:list';
 @use 'sass:color';
-@use 'sass:math';
-
-@function is-color($v) {
-    @return meta.type-of($v) == color;
-}
-
-@function nth-or($list, $n, $or: null) {
-    @return $list and list.length($list) >= $n and list.nth($list, $n) or $or;
-}
-
-@function plus-one($n) {
-    $test: meta.type-of($n) == number and math.compatible($n, 1px);
-    @return if($test, $n + 1px, calc(#{$n} + 1px));
-}
-
-@mixin flex-row($align: null) {
-    display: -webkit-box;
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    flex-direction: row;
-    -webkit-box-align: $align;
-    align-items: $align;
-}
+@use 'utils';
 
 @mixin header-styles($color: null, $theme: light, $height: null, $padding: null, $mobile: 600px, $transition: .3s .25s) {
     // color
-    $bg-color: nth-or($color, 1);
-    $text-color: nth-or($color, 2);
+    $bg-color: utils.nth-or($color, 1);
+    $text-color: utils.nth-or($color, 2);
 
     $fallback-color: black;
-    @if is-color($bg-color) and is-color($text-color) and color.lightness($bg-color) < color.lightness($text-color)
-    or is-color($bg-color) and color.lightness($bg-color) < 50%
-    or is-color($text-color) and color.lightness($text-color) > 50%
+    @if utils.is-color($bg-color) and utils.is-color($text-color) and color.lightness($bg-color) < color.lightness($text-color)
+    or utils.is-color($bg-color) and color.lightness($bg-color) < 50%
+    or utils.is-color($text-color) and color.lightness($text-color) > 50%
     or $theme == dark {
         $fallback-color: white;
     }
 
-    $bg-color-dark: rgba(is-color($text-color) or $fallback-color, 0.16);
-    @if is-color($bg-color) {
-        $bg-color-dark: mix(is-color($text-color) or $fallback-color, $bg-color, 16%);
+    $bg-color-dark: rgba(utils.is-color($text-color) or $fallback-color, 0.16);
+    @if utils.is-color($bg-color) {
+        $bg-color-dark: mix(utils.is-color($text-color) or $fallback-color, $bg-color, 16%);
     }
 
     // transitions
-    $t-dropdown: nth-or($transition, 1, .3s);
-    $t-link: nth-or($transition, 2, $t-dropdown);
+    $t-dropdown: utils.nth-or($transition, 1, .3s);
+    $t-link: utils.nth-or($transition, 2, $t-dropdown);
 
     position: relative;
     width: 100%;
@@ -71,18 +46,18 @@
         margin: 0;
         background-color: inherit;
 
-        @media screen and (min-width: plus-one($mobile)) {
-            @include flex-row();
+        @media screen and (min-width: utils.plus-one($mobile)) {
+            @include utils.flex-row();
         }
     }
 
     &__mobile {
-        @include flex-row();
+        @include utils.flex-row();
         height: 100%;
     }
 
     &__logo {
-        @include flex-row(center);
+        @include utils.flex-row(center);
         margin-right: auto;
         height: 100%;
 
@@ -93,7 +68,7 @@
     }
 
     &__mobile-buttons {
-        @include flex-row(center);
+        @include utils.flex-row(center);
         margin-left: auto;
         height: 100%;
 
@@ -137,8 +112,8 @@
             }
         }
 
-        @media screen and (min-width: plus-one($mobile)) {
-            @include flex-row();
+        @media screen and (min-width: utils.plus-one($mobile)) {
+            @include utils.flex-row();
             overflow: visible;
         }
     }
@@ -156,14 +131,14 @@
         min-width: 100%;
         background-color: inherit;
 
-        @media screen and (min-width: plus-one($mobile)) {
+        @media screen and (min-width: utils.plus-one($mobile)) {
             position: absolute;
             top: 100%;
             left: 0;
         }
     }
 
-    @media screen and (min-width: plus-one($mobile)) {
+    @media screen and (min-width: utils.plus-one($mobile)) {
         &__link-container:not(:hover) &__dropdown {
             display: none;
         }
@@ -178,7 +153,7 @@
         transition-duration: $t-link; // different variable for link transitions
 
         @media screen and (min-width: $mobile + 1) {
-            @include flex-row(center);
+            @include utils.flex-row(center);
             cursor: pointer;
         }
 
@@ -191,7 +166,7 @@
             background-color: $bg-color-dark;
 
             &:hover {
-                background-color: mix(is-color($text-color) or $fallback-color, $bg-color-dark, 16%);
+                background-color: mix(utils.is-color($text-color) or $fallback-color, $bg-color-dark, 16%);
             }
         }
 
