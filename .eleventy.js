@@ -6,6 +6,7 @@ const header = require(p('index.js'));
 module.exports = eleventyConfig => {
     eleventyConfig.addPassthroughCopy('dist');
     eleventyConfig.addPassthroughCopy('eleventy/css');
+    eleventyConfig.addWatchTarget('eleventy/css/**/*.css');
 
     // add YAML support
     eleventyConfig.addDataExtension('yml', data => yaml.safeLoad(data));
