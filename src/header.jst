@@ -13,7 +13,7 @@
 
   {{? isDropdown }}
     <div class="{{!name}}__dropdown" data-menu-dropdown>
-      {{ linkClass = `${name}__link-sub-link`; }}
+      {{ linkClass = `${name}__link--hover ${name}__link--sub-link`; }}
       {{~ link.dropdown :link }}
         {{# def.link }}
       {{~}}
