@@ -8,7 +8,6 @@
 #}}
 
 {{## def.topLink:
-  {{ var isDropdown = link.dropdown && link.dropdown.length; }}
   {{ var linkClass = `${name}__link--${isDropdown ? 'dropdown-hover' : 'hover'}`; }}
   {{# def.link }}
 
@@ -22,16 +21,6 @@
   {{?}}
 #}}
 
-{{## def.topLink:
-  {{ var isDropdown = link.dropdown && link.dropdown.length; }}
-  {{? isDropdown }}
-    <div class="{{!name}}__link-container hover">
-      {{# def.topLink }}
-    </div>
-  {{??}}
-    {{# def.topLink }}
-  {{?}}
-#}}
 
 <header id="{{!name}}" class="{{! classList(name, it.classes) }}" data-menu data-fixed-header>
   <nav id="site-nav" class="{{!name}}__nav">
@@ -58,7 +47,14 @@
 
     <div class="{{!name}}__links {{!name}}__links--target t-long" data-menu-links data-class-rm="t-long">
       {{~ it.links :link }}
-        {{# def.topLink }}
+        {{ var isDropdown = link.dropdown && link.dropdown.length; }}
+        {{? isDropdown }}
+          <div class="{{!name}}__link-container hover">
+            {{# def.topLink }}
+          </div>
+        {{??}}
+          {{# def.topLink }}
+        {{?}}
       {{~}}
     </div>
   </nav>
