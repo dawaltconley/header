@@ -1,8 +1,15 @@
+@use 'sass:meta';
 @use 'sass:list';
 @use 'sass:color';
+@use 'sass:math';
 
 @function nth-or($list, $n, $or: null) {
     @return $list and list.length($list) >= $n and list.nth($list, $n) or $or;
+}
+
+@function plus-one($n) {
+    $test: meta.type-of($n) == number and math.compatible($n, 1px);
+    @return if($test, $n + 1px, calc(#{$n} + 1px));
 }
 
 @mixin flex-row($align: null) {
@@ -72,7 +79,7 @@
         height: 100%;
         margin: 0;
 
-        @media screen and (min-width: $mobile + 1px) {
+        @media screen and (min-width: plus-one($mobile)) {
             @include flex-row();
         }
     }
@@ -83,7 +90,7 @@
         padding-left: $base-padding;
         padding-right: $base-padding;
 
-        @media screen and (min-width: $mobile + 1) {
+        @media screen and (min-width: plus-one($mobile)) {
             padding-left: 0px;
             padding-right: 0px;
         }
@@ -145,7 +152,7 @@
             }
         }
 
-        @media screen and (min-width: $mobile + 1px) {
+        @media screen and (min-width: plus-one($mobile)) {
             @include flex-row();
             overflow: visible;
         }
@@ -162,7 +169,7 @@
     &__dropdown {
         min-width: 100%;
 
-        @media screen and (min-width $mobile + 1px) {
+        @media screen and (min-width plus-one($mobile)) {
             position: absolute;
             top: 100%;
             left: 0;
@@ -211,7 +218,11 @@
             height: $height;
 
             @media screen and (max-width: $mobile) {
-                padding-left: 2 * $drop-padding;
+                @if meta.type-of($drop-padding) == number {
+                    padding-left: 2 * $drop-padding;
+                } @else {
+                    padding-left: calc(2 * #{$drop-padding});
+                }
             }
         }
     }
