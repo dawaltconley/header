@@ -18,8 +18,9 @@
 @mixin header-styles($color: null, $theme: light, $height: 56px, $padding: null, $mobile: 600px, $transition: .3s .25s) {
     // padding
     $base-padding: nth-or($padding, 1, 60px);
-    $link-padding: nth-or($padding, 2, 15px);
-    $logo-padding: nth-or($padding, 3, 5px);
+    $drop-padding: nth-or($padding, 2, 30px);
+    $link-padding: nth-or($padding, 3, 15px);
+    $logo-padding: nth-or($padding, 4, 5px);
 
     // color
     $bg-color: nth-or($color, 1);
@@ -127,15 +128,25 @@
     }
 
 
-    &__links {
+    &__links { // data-menu-links
         margin-left: auto;
         height: 100%;
-        max-height: 100%;
         background-color: $bg-color;
         overflow: hidden;
         transition-duration: $t-dropdown; // should change based on js or pure css
         transition-property: max-height;
         transition-timing-function: ease-out;
+
+        @media screen and (max-width: $mobile) { // originally applied to [data-menu-links]
+            height: auto;
+            max-height: 0;
+
+            & > * {
+                width: 100%;
+                margin-bottom: 2px;
+                line-height: 2;
+            }
+        }
 
         @media screen and (min-width: $mobile + 1px) {
             @include flex-row();
@@ -167,7 +178,7 @@
         }
     }
 
-    &__link {
+    &__link { // data-menu-link
         display: block;
         height: 100%;
         padding-left: $link-padding;
@@ -187,6 +198,10 @@
         }
 
         @media screen and (max-width: $mobile) {
+            height: auto;
+            padding-left: $drop-padding;
+            padding-right: $drop-padding;
+
             // possible this should *not* apply to --sub-link
             background-color: $bg-color-dark;
 
@@ -197,6 +212,10 @@
 
         &--sub-link {
             height: $height;
+
+            @media screen and (max-width: $mobile) {
+                padding-left: 2 * $drop-padding;
+            }
         }
     }
 }
