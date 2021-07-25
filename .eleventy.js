@@ -13,7 +13,7 @@ module.exports = eleventyConfig => {
     eleventyConfig.addDataExtension('yml', data => yaml.safeLoad(data));
     eleventyConfig.addDataExtension('yaml', data => yaml.safeLoad(data));
 
-    header(eleventyConfig);
+    eleventyConfig.addPlugin(header.eleventy);
 
     return {
         dir: {
