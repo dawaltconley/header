@@ -3,6 +3,10 @@
 @use 'sass:color';
 @use 'sass:math';
 
+@function is-color($v) {
+    @return meta.type-of($v) == color;
+}
+
 @function nth-or($list, $n, $or: null) {
     @return $list and list.length($list) >= $n and list.nth($list, $n) or $or;
 }
@@ -34,16 +38,16 @@
     $text-color: nth-or($color, 2);
 
     $fallback-color: black;
-    @if $bg-color and $text-color and color.lightness($bg-color) < color.lightness($text-color)
-    or $bg-color and color.lightness($bg-color) < 50%
-    or $text-color and color.lightness($text-color) > 50%
+    @if is-color($bg-color) and is-color($text-color) and color.lightness($bg-color) < color.lightness($text-color)
+    or is-color($bg-color) and color.lightness($bg-color) < 50%
+    or is-color($text-color) and color.lightness($text-color) > 50%
     or $theme == dark {
         $fallback-color: white;
     }
 
-    $bg-color-dark: rgba($text-color or $fallback-color, 0.16);
-    @if $bg-color {
-        $bg-color-dark: mix($text-color or $fallback-color, $bg-color, 16%);
+    $bg-color-dark: rgba(is-color($text-color) or $fallback-color, 0.16);
+    @if is-color($bg-color) {
+        $bg-color-dark: mix(is-color($text-color) or $fallback-color, $bg-color, 16%);
     }
 
     // transitions
@@ -210,7 +214,7 @@
             background-color: $bg-color-dark;
 
             &--hover:hover {
-                background-color: mix($text-color or black, $bg-color-dark, 16%);
+                background-color: mix(is-color($text-color) or $fallback-color, $bg-color-dark, 16%);
             }
         }
 
