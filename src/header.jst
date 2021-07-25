@@ -35,10 +35,10 @@
 <header id="{{=name}}" class="{{=name}}" data-menu data-fixed-header>
   <nav id="site-nav" class="{{=name}}__nav">
     <div class="{{=name}}__mobile">
-      {{? !it.center }}
+      {{? it.logo }}
         <a class="{{=name}}__logo" href="/">
-          {{? it.logo && it.logo.src }}
-            <img class="{{=name}}__logo-img" itemprop="logo" src="{{=it.logo.src}}" alt="{{=it.logo.alt}}">
+          {{? it.logo.src }}
+            <img class="{{=name}}__logo-img" itemprop="logo" src="{{=it.logo.src}}" alt="{{= it.logo.alt || '' }}">
           {{?? it.logo }}
             {{=it.logo}}
           {{?}}
