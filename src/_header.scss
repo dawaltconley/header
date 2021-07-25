@@ -26,13 +26,7 @@
     align-items: $align;
 }
 
-@mixin header-styles($color: null, $theme: light, $height: 56px, $padding: null, $mobile: 600px, $transition: .3s .25s) {
-    // padding
-    $base-padding: nth-or($padding, 1, 60px);
-    $drop-padding: nth-or($padding, 2, 30px);
-    $link-padding: nth-or($padding, 3, 15px);
-    $logo-padding: nth-or($padding, 4, 5px);
-
+@mixin header-styles($color: null, $theme: light, $height: null, $padding: null, $mobile: 600px, $transition: .3s .25s) {
     // color
     $bg-color: nth-or($color, 1);
     $text-color: nth-or($color, 2);
@@ -57,16 +51,9 @@
     position: relative;
     width: 100%;
     height: $height;
-    padding-left: $base-padding;
-    padding-right: $base-padding;
     text-align: left;
     color: $text-color;
     background-color: $bg-color;
-
-    @media screen and (max-width: $mobile) {
-        padding-left: 0px;
-        padding-right: 0px;
-    }
 
     &, & * {
         box-sizing: border-box;
@@ -92,21 +79,12 @@
     &__mobile {
         @include flex-row();
         height: 100%;
-        padding-left: $base-padding;
-        padding-right: $base-padding;
-
-        @media screen and (min-width: plus-one($mobile)) {
-            padding-left: 0px;
-            padding-right: 0px;
-        }
     }
 
     &__logo {
         @include flex-row(center);
         margin-right: auto;
         height: 100%;
-        padding-top: $logo-padding;
-        padding-bottom: $logo-padding;
 
         &-img {
             display: block;
@@ -147,13 +125,15 @@
         transition-timing-function: ease-out;
 
         @media screen and (max-width: $mobile) { // originally applied to [data-menu-links]
+            position: absolute;
+            left: 0; top: 100%;
+            width: 100%;
             height: auto;
             max-height: 0;
 
             & > * {
                 width: 100%;
                 margin-bottom: 2px;
-                line-height: 2;
             }
         }
 
@@ -169,19 +149,21 @@
 
     &__link-container {
         position: relative;
+        background-color: inherit;
     }
 
     &__dropdown {
         min-width: 100%;
+        background-color: inherit;
 
-        @media screen and (min-width plus-one($mobile)) {
+        @media screen and (min-width: plus-one($mobile)) {
             position: absolute;
             top: 100%;
             left: 0;
         }
     }
 
-    @media screen and (max-width: $mobile) {
+    @media screen and (min-width: plus-one($mobile)) {
         &__link-container:not(:hover) &__dropdown {
             display: none;
         }
@@ -190,8 +172,6 @@
     &__link { // data-menu-link
         display: block;
         height: 100%;
-        padding-left: $link-padding;
-        padding-right: $link-padding;
         white-space: nowrap;
         background-color: $bg-color;
         transition-property: background-color;
@@ -208,10 +188,6 @@
 
         @media screen and (max-width: $mobile) {
             height: auto;
-            padding-left: $drop-padding;
-            padding-right: $drop-padding;
-
-            // possible this should *not* apply to --sub-link
             background-color: $bg-color-dark;
 
             &--hover:hover {
@@ -221,14 +197,6 @@
 
         &--sub-link {
             height: $height;
-
-            @media screen and (max-width: $mobile) {
-                @if meta.type-of($drop-padding) == number {
-                    padding-left: 2 * $drop-padding;
-                } @else {
-                    padding-left: calc(2 * #{$drop-padding});
-                }
-            }
         }
     }
 }

@@ -2,7 +2,29 @@
 @import '../css/main';
 
 .header {
+    height: 56px;
+    padding-left: 60px;
+    padding-right: 60px;
+    background-color: white;
+    line-height: 2.2;
     z-index: 9;
 
     @include header.header-styles();
+
+    &__link {
+        $padding: 15px;
+        padding-left: $padding;
+        padding-right: $padding;
+
+        &--sub-link { // can be mq
+            padding-left: $padding * 2;
+            padding-right: $padding * 2;
+        }
+    }
+
+    &__logo {
+        $padding: 5px;
+        padding-top: $padding;
+        padding-bottom: $padding;
+    }
 }
