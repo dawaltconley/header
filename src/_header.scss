@@ -51,9 +51,6 @@
     text-align: left;
     color: $text-color or inherit;
     background-color: $bg-color or inherit;
-    // -webkit-font-smoothing: subpixel-antialiased;
-    // -moz-osx-font-smoothing: auto;
-    // z-index: 9;
 
     @media screen and (max-width: $mobile) {
         padding-left: 0px;
