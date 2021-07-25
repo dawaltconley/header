@@ -1,27 +1,8 @@
-$theme: light; // auto-determine if null
+@use 'sass:list';
+@use 'sass:color';
 
-$height: 56px;
-$padding: 60px;
-$link-padding: 15px;
-$logo-padding: 3px;
-$mq: 600px;
-$transition: .3s;
-
-$text-color: #333;
-$bg-color: #fff;
-$fallback-color: null;
-
-@if $theme == light {
-    $fallback-color: black;
-} @else if $theme == dark {
-    $fallback-color: white;
-} @else {
-    @error "Theme must be either 'light' or 'dark', was '#{$theme}'.";
-}
-
-$bg-color-dark: rgba($text-color or black, 0.16);
-@if $bg-color {
-    $bg-color-dark: mix($text-color or black, $bg-color, 16%);
+@function nth-or($list, $n, $or: null) {
+    @return $list and list.length($list) >= $n and list.nth($list, $n) or $or;
 }
 
 @mixin flex-row($align: null) {
@@ -34,15 +15,41 @@ $bg-color-dark: rgba($text-color or black, 0.16);
     align-items: $align;
 }
 
-.header {
+@mixin header-styles($color: null, $theme: light, $height: 56px, $padding: null, $mobile: 600px, $transition: .3s .25) {
+    // padding
+    $base-padding: nth-or($padding, 1, 60px);
+    $link-padding: nth-or($padding, 2, 15px);
+    $logo-padding: nth-or($padding, 3, 5px);
+
+    // color
+    $bg-color: nth-or($color, 1);
+    $text-color: nth-or($color, 2);
+
+    $fallback-color: black;
+    @if $bg-color and $text-color and color.lightness($bg-color) < color.lightness($text-color)
+    or $bg-color and color.lightness($bg-color) < 50%
+    or $text-color and color.lightness($text-color) > 50%
+    or $theme == dark {
+        $fallback-color: white;
+    }
+
+    $bg-color-dark: rgba($text-color or $fallback-color, 0.16);
+    @if $bg-color {
+        $bg-color-dark: mix($text-color or $fallback-color, $bg-color, 16%);
+    }
+
+    // transitions
+    $t-dropdown: nth-or($transition, 1, .3s);
+    $t-link: nth-or($transition, 2, $t-dropdown);
+
     position: relative;
     width: 100%;
     height: $height;
-    padding-left: $padding;
-    padding-right: $padding;
+    padding-left: $base-padding;
+    padding-right: $base-padding;
     text-align: left;
-    color: $text-color; // or inherit
-    background-color: $bg-color; // or inherit
+    color: $text-color or inherit;
+    background-color: $bg-color or inherit;
     // -webkit-font-smoothing: subpixel-antialiased;
     // -moz-osx-font-smoothing: auto;
     // z-index: 9;
@@ -58,9 +65,8 @@ $bg-color-dark: rgba($text-color or black, 0.16);
 
     & a {
         text-decoration: none;
-        color: inherit;
-        // color: $text-color;
-        // fill: $text-color;
+        color: $text-color or inherit;
+        fill: $text-color or inherit;
     }
 
     &__nav {
@@ -71,25 +77,15 @@ $bg-color-dark: rgba($text-color or black, 0.16);
         @media screen and (min-width: $mq + 1px) {
             @include flex-row();
         }
-
-        // &:target {
-        //     &__mobile-buttons-open {
-        //         display: none;
-        //     }
-        //
-        //     &__mobile-buttons-close {
-        //         display: unset;
-        //     }
-        // }
     }
 
     &__mobile {
         @include flex-row();
         height: 100%;
-        padding-left: $padding;
-        padding-right: $padding;
+        padding-left: $base-padding;
+        padding-right: $base-padding;
 
-        @media screen and (max-width: $mq) {
+        @media screen and (min-width: $mq + 1) {
             padding-left: 0px;
             padding-right: 0px;
         }
@@ -101,10 +97,6 @@ $bg-color-dark: rgba($text-color or black, 0.16);
         height: 100%;
         padding-top: $logo-padding;
         padding-bottom: $logo-padding;
-        // color: inherit;
-        // // color: $text-color;
-        // // fill: $text-color;
-        // text-decoration: none;
 
         &-img {
             display: block;
@@ -121,33 +113,27 @@ $bg-color-dark: rgba($text-color or black, 0.16);
             display: none;
         }
 
-        &-open, &-close {
-            // text-decoration: none;
-            // color: inherit;
-            // // color: $text-color;
-            // // fill: $text-color;
-        }
-
         &-close--hide {
-            display: none;
-        }
-
-        @at-root .header__nav:target &-open--target {
-            display: none;
-        }
-
-        @at-root .header__nav:not(:target) &-close--target {
             display: none;
         }
     }
 
+    &__nav:target &__mobile-buttons-open--target {
+        display: none;
+    }
+
+    &__nav:not(:target) &__mobile-buttons-close--target {
+        display: none;
+    }
+
+
     &__links {
         margin-left: auto;
         height: 100%;
+        max-height: 100%;
         background-color: $bg-color;
         overflow: hidden;
-        -webkit-transition-duration: $transition;
-        transition-duration: $transition; // should change based on js or pure css
+        transition-duration: $t-dropdown; // should change based on js or pure css
         transition-property: max-height;
         transition-timing-function: ease-out;
 
@@ -155,9 +141,29 @@ $bg-color-dark: rgba($text-color or black, 0.16);
             @include flex-row();
             overflow: visible;
         }
+    }
 
-        @at-root .header__nav:target &--target {
-            max-height: 100vw;
+    &__nav:target &__links--target {
+        max-height: 100vw
+    }
+
+    &__link-container {
+        position: relative;
+    }
+
+    &__dropdown {
+        min-width: 100%;
+
+        @media screen and (min-width $mq + 1px) {
+            position: absolute;
+            top: 100%;
+            left: 0;
+        }
+    }
+
+    @media screen and (max-width: $mq) {
+        &__link-container:not(:hover) &__dropdown {
+            display: none;
         }
     }
 
@@ -166,28 +172,14 @@ $bg-color-dark: rgba($text-color or black, 0.16);
         height: 100%;
         padding-left: $link-padding;
         padding-right: $link-padding;
-        // text-decoration: none;
-        // color: inherit;
-        // // color: $text-color;
-        // // fill: $text-color;
         white-space: nowrap;
         background-color: $bg-color;
         transition-property: background-color;
-        transition-duration: $transition; // different variable for link transitions
+        transition-duration: $t-link; // different variable for link transitions
 
         @media screen and (min-width: $mq + 1) {
             @include flex-row(center);
             cursor: pointer;
-        }
-
-        &-container {
-            position: relative;
-
-            @media screen and (max-width: $mq) {
-                &:not(:hover) .header__dropdown {
-                    display: none;
-                }
-            }
         }
 
         &--hover:hover, &-container:hover &--dropdown-hover {
@@ -205,16 +197,6 @@ $bg-color-dark: rgba($text-color or black, 0.16);
 
         &--sub-link {
             height: $height;
-        }
-    }
-
-    &__dropdown {
-        min-width: 100%;
-
-        @media screen and (min-width $mq + 1px) {
-            position: absolute;
-            top: 100%;
-            left: 0;
         }
     }
 }
