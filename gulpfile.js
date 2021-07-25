@@ -7,9 +7,14 @@ const sass = require('gulp-sass')(require('sass'));
 const html = () => gulp.src('src/header.njk')
     .pipe(gulp.dest('dist'));
 
-const sassCompile =() => gulp.src('src/header.scss')
+const sassCompile = () => gulp.src('src/_header.scss')
+    .pipe(gulp.dest('dist'))
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('dist'));
+
+const eleventySass = () => gulp.src('eleventy/_sass/*.scss')
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('eleventy/css/sass'));
 
 const dotCompile = async () => {
     let template = await fs.promises.readFile('src/header.jst');
@@ -26,3 +31,5 @@ const jsCompile = () => gulp.src('src/*.js')
 const buildPackage = gulp.parallel(html, dotCompile, sassCompile, jsCompile);
 
 exports.build = buildPackage;
+
+exports.eleventy = gulp.parallel(buildPackage, eleventySass);

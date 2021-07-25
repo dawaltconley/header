@@ -15,7 +15,7 @@
     align-items: $align;
 }
 
-@mixin header-styles($color: null, $theme: light, $height: 56px, $padding: null, $mobile: 600px, $transition: .3s .25) {
+@mixin header-styles($color: null, $theme: light, $height: 56px, $padding: null, $mobile: 600px, $transition: .3s .25s) {
     // padding
     $base-padding: nth-or($padding, 1, 60px);
     $link-padding: nth-or($padding, 2, 15px);
@@ -54,7 +54,7 @@
     // -moz-osx-font-smoothing: auto;
     // z-index: 9;
 
-    @media screen and (max-width: $mq) {
+    @media screen and (max-width: $mobile) {
         padding-left: 0px;
         padding-right: 0px;
     }
@@ -74,7 +74,7 @@
         height: 100%;
         margin: 0;
 
-        @media screen and (min-width: $mq + 1px) {
+        @media screen and (min-width: $mobile + 1px) {
             @include flex-row();
         }
     }
@@ -85,7 +85,7 @@
         padding-left: $base-padding;
         padding-right: $base-padding;
 
-        @media screen and (min-width: $mq + 1) {
+        @media screen and (min-width: $mobile + 1) {
             padding-left: 0px;
             padding-right: 0px;
         }
@@ -109,7 +109,7 @@
         margin-left: auto;
         height: 100%;
 
-        @media screen and (min-width: $mq) {
+        @media screen and (min-width: $mobile) {
             display: none;
         }
 
@@ -137,7 +137,7 @@
         transition-property: max-height;
         transition-timing-function: ease-out;
 
-        @media screen and (min-width: $mq + 1px) {
+        @media screen and (min-width: $mobile + 1px) {
             @include flex-row();
             overflow: visible;
         }
@@ -154,14 +154,14 @@
     &__dropdown {
         min-width: 100%;
 
-        @media screen and (min-width $mq + 1px) {
+        @media screen and (min-width $mobile + 1px) {
             position: absolute;
             top: 100%;
             left: 0;
         }
     }
 
-    @media screen and (max-width: $mq) {
+    @media screen and (max-width: $mobile) {
         &__link-container:not(:hover) &__dropdown {
             display: none;
         }
@@ -177,7 +177,7 @@
         transition-property: background-color;
         transition-duration: $t-link; // different variable for link transitions
 
-        @media screen and (min-width: $mq + 1) {
+        @media screen and (min-width: $mobile + 1) {
             @include flex-row(center);
             cursor: pointer;
         }
@@ -186,7 +186,7 @@
             background-color: $bg-color-dark;
         }
 
-        @media screen and (max-width: $mq) {
+        @media screen and (max-width: $mobile) {
             // possible this should *not* apply to --sub-link
             background-color: $bg-color-dark;
 

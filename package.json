@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "build": "npx gulp build",
-    "test": "npx gulp build; npx @11ty/eleventy",
-    "serve": "npx gulp build; npx @11ty/eleventy --serve"
+    "test": "npx gulp eleventy; npx @11ty/eleventy",
+    "serve": "npx gulp eleventy; npx @11ty/eleventy --serve"
   },
   "author": "Dylan Awalt-Conley",
   "license": "ISC",

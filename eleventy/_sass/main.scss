@@ -1,0 +1,8 @@
+@use '../../dist/header';
+@import '../css/main';
+
+.header {
+    z-index: 9;
+
+    @include header.header-styles();
+}
