@@ -3,6 +3,12 @@ links:
     page: '/'
   - text: About
     page: '/about/'
+  - text: Dropdown
+    dropdown:
+      - text: Drop 1
+        page: '/foo/'
+      - text: Drop 2
+        page: '/bar/'
 logo:
   src: 'http://pigment.github.io/fake-logos/logos/small/color/greens-food-suppliers.png'
   alt: Greens Food Suppliers
