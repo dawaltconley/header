@@ -1,28 +1,43 @@
 @use 'sass/header';
 
 .header {
+    $padding: 60px;
+    --padding: #{$padding};
+    $height: 56px;
+    --height: #{$height};
+    $bg: white;
+    --background-color: #{$bg};
+    $lh: 2.2;
+    --line-height: #{$lh};
+    $z: 9;
+    --z-index: #{$z};
+
     @include header.styles();
 
-    height: 56px;
-    padding-left: 60px;
-    padding-right: 60px;
-    background-color: white;
-    line-height: 2.2;
-    z-index: 9;
+    height: var(--height, $height);
+    padding-left: var(--padding, $padding);
+    padding-right: var(--padding, $padding);
+    background-color: var(--background-color, $bg);
+    line-height: var(--line-height, $lh);
+    z-index: var(--z-index, $z);
 
     &__link {
         $padding: 15px;
-        padding-left: $padding;
-        padding-right: $padding;
+        --padding: #{$padding};
+        padding-left: var(--padding, $padding);
+        padding-right: var(--padding, $padding);
 
         &--sub-link { // can be mq
-            padding-left: $padding * 2;
+            $padding: $padding * 2;
+            --padding: #{$padding};
+            padding-left: var(--padding, $padding);
         }
     }
 
     &__logo {
         $padding: 5px;
-        padding-top: $padding;
-        padding-bottom: $padding;
+        --padding: #{$padding};
+        padding-top: var(--padding, $padding);
+        padding-bottom: var(--padding, $padding);
     }
 }

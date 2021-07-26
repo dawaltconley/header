@@ -46,3 +46,9 @@ main {
     padding: 60px;
     background-color: #d1fae6;
 }
+
+@media screen and (max-width: 600px) {
+    .header {
+        --padding: 30px;
+    }
+}
