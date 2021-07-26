@@ -36,11 +36,11 @@
       {{?}}
 
       <div class="{{!name}}__mobile-buttons">
-        <a href="#site-nav" class="{{!name}}__mobile-buttons-open {{!name}}__mobile-buttons-open--target" data-menu-button="open">
-          Menu&nbsp;<i class="fa fa-bars fa-fw fa-lg"></i>
+        <a href="#site-nav" class="{{!name}}__mobile-button {{!name}}__mobile-button--open" data-menu-button="open">
+          Menu{{? it.iconOpen || it.icons && it.icons.open }}&nbsp;{{= it.iconOpen || it.icons.open }}{{?}}
         </a>
-        <a href="#" class="{{!name}}__mobile-buttons-close {{!name}}__mobile-buttons-close--target" data-class-add="hidden" data-menu-button="close">
-          Close&nbsp;<i class="fa fa-times fa-fw fa-lg"></i>
+        <a href="#" class="{{!name}}__mobile-button {{!name}}__mobile-button--close" data-class-add="hidden" data-menu-button="close">
+          Close{{? it.iconClose || it.icons && it.icons.close }}&nbsp;{{= it.iconClose || it.icons.close }}{{?}}
         </a>
       </div>
     </div>

@@ -76,17 +76,21 @@
         @media screen and (min-width: $mobile) {
             display: none;
         }
+    }
 
-        &-close--hide {
-            display: none;
+    &__mobile-button {
+        @include utils.flex-row(center);
+
+        & svg {
+            height: 1.2em;
         }
     }
 
-    &__nav:target &__mobile-buttons-open--target {
+    &__nav:target &__mobile-button--open {
         display: none;
     }
 
-    &__nav:not(:target) &__mobile-buttons-close--target {
+    &__nav:not(:target) &__mobile-button--close {
         display: none;
     }
 
