@@ -14,9 +14,10 @@
         $fallback-color: white;
     }
 
-    $bg-color-dark: rgba(utils.is-color($text-color) or $fallback-color, 0.16);
+    $mix-color: utils.is-color($text-color) and $text-color or $fallback-color;
+    $bg-color-dark: rgba($mix-color, 0.16);
     @if utils.is-color($bg-color) {
-        $bg-color-dark: mix(utils.is-color($text-color) or $fallback-color, $bg-color, 16%);
+        $bg-color-dark: mix($mix-color, $bg-color, 16%);
     }
 
     // transitions
@@ -166,7 +167,7 @@
             background-color: $bg-color-dark;
 
             &:hover {
-                background-color: mix(utils.is-color($text-color) or $fallback-color, $bg-color-dark, 16%);
+                background-color: mix($mix-color, $bg-color-dark, 16%);
             }
         }
 
