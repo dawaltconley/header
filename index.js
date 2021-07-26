@@ -11,9 +11,10 @@ const buildHeader = function(opts={}) {
     });
 };
 
-module.exports.eleventy = (eleventyConfig) => {
-    eleventyConfig.addNunjucksShortcode('header', buildHeader);
-    eleventyConfig.addLiquidTag('header', function(liquidEngine) {
+module.exports.eleventy = (eleventyConfig, opts={}) => {
+    let { tagName = 'header' } = opts;
+    eleventyConfig.addNunjucksShortcode(tagName, buildHeader);
+    eleventyConfig.addLiquidTag(tagName, function(liquidEngine) {
         return {
             parse: function(tagToken) {
                 this.args = tagToken.args;
