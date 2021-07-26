@@ -5,11 +5,10 @@
     height: 56px;
     padding-left: 60px;
     padding-right: 60px;
-    background-color: white;
     line-height: 2.2;
     z-index: 9;
 
-    @include header.styles();
+    @include header.styles($color: #333 white, $transition: .3s .25s);
 
     &__link {
         $padding: 15px;
@@ -18,7 +17,6 @@
 
         &--sub-link { // can be mq
             padding-left: $padding * 2;
-            padding-right: $padding * 2;
         }
     }
 

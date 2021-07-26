@@ -6,6 +6,7 @@ const sass = require('gulp-sass')(require('sass'));
 
 const sassCompile = () => gulp.src('src/header.scss')
     .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('eleventy/_site/css'))
     .pipe(gulp.dest('dist'));
 
 const sassCopy = () => gulp.src('src/sass/*')
