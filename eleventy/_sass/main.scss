@@ -2,6 +2,11 @@
 @import '../css/main';
 
 .foo {
+    --bg: white;
+    --text: #333;
+    --height: 56px;
+    --transition: .3s;
+
     height: 56px;
     padding-left: 60px;
     padding-right: 60px;
