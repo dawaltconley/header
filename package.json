@@ -1,9 +1,11 @@
 {
   "name": "@dawaltconley/header-basic",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A basic header for websites.",
   "main": "index.js",
-  "files": [ "dist/**/*" ],
+  "files": [
+    "dist/**/*"
+  ],
   "scripts": {
     "build": "npx gulp build",
     "test": "npx gulp eleventy; npx @11ty/eleventy",
