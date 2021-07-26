@@ -7,7 +7,9 @@ layout: base
   <link rel="stylesheet" href="{{ '/css/main.css' | url }}">
 {% endblock %}
 
-{% header links=header.links, logo=header.logo %}
+{% set open %}{% faSvg 'bars.svg' %}{% endset %}
+{% set close %}{% faSvg 'times.svg' %}{% endset %}
+{% header links=header.links, logo=header.logo, iconOpen=open, iconClose=close %}
 
 <main>
   <p>Some main content</p>

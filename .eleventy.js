@@ -1,3 +1,4 @@
+const fs = require('fs');
 const path = require('path');
 const p = (...args) => path.join(__dirname, ...args);
 const yaml = require('js-yaml');
@@ -14,6 +15,10 @@ module.exports = eleventyConfig => {
     eleventyConfig.addDataExtension('yaml', data => yaml.safeLoad(data));
 
     eleventyConfig.addPlugin(header.eleventy);
+
+    eleventyConfig.addShortcode('faSvg', (file, type='solid') =>
+        fs.readFileSync(p('node_modules', '@fortawesome', 'fontawesome-pro', 'svgs', type, file))
+            .toString());
 
     return {
         dir: {
