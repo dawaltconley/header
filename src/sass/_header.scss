@@ -179,4 +179,9 @@
             height: $height;
         }
     }
+
+    & + * {
+        margin-top: $height and -$height;
+        padding-top: $height;
+    }
 }
