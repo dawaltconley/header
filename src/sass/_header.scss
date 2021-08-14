@@ -62,8 +62,9 @@
         margin-right: auto;
         height: 100%;
 
-        &-img {
+        svg, &-img {
             display: block;
+            width: auto;
             height: 100%;
         }
     }

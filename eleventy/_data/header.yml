@@ -11,4 +11,5 @@ links:
         page: '/bar/'
 logo:
   src: 'http://pigment.github.io/fake-logos/logos/small/color/greens-food-suppliers.png'
+  # src: 'http://pigment.github.io/fake-logos/logos/vector/color/crofts-accountants.svg'
   alt: Greens Food Suppliers

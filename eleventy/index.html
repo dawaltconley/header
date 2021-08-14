@@ -7,9 +7,10 @@ layout: base
   <link rel="stylesheet" href="{{ '/css/main.css' | url }}">
 {% endblock %}
 
+{% set logo %}{% include 'crofts-accountants.svg' %}{% endset %}
 {% set open %}{% faSvg 'bars.svg' %}{% endset %}
 {% set close %}{% faSvg 'times.svg' %}{% endset %}
-{% header header, iconOpen=open, iconClose=close %}
+{% header header, logo=logo, iconOpen=open, iconClose=close %}
 
 <main>
   <p>Some main content</p>
