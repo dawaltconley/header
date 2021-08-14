@@ -3,11 +3,19 @@ const path = require('path');
 const p = (...args) => path.join(__dirname, ...args);
 const headerTemplate = require(p('dist', 'template.js'));
 
-const buildHeader = function(opts={}) {
+const buildHeader = function(...args) {
+    let kwargs = args.find(a => a.__keywords);
+    let config = args.reduce((final, obj) => {
+        if (obj.__keywords)
+            return final;
+        return { ...final, ...obj };
+    }, {});
+
     return headerTemplate({
         links: [],
         name: 'header',
-        ...opts
+        ...config,
+        ...kwargs
     });
 };
 
