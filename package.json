@@ -25,7 +25,11 @@
     "gulp-babel": "^8.0.0",
     "gulp-sass": "^5.0.0",
     "js-yaml": "^3.14.1",
-    "sass": "^1.36.0"
+    "sass": "^1.36.0",
+    "stylelint": "^13.13.1",
+    "stylelint-config-recommended": "^5.0.0",
+    "stylelint-config-recommended-scss": "^4.3.0",
+    "stylelint-scss": "^3.20.1"
   },
   "dependencies": {
     "liquid-args": "^1.0.0"
