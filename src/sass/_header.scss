@@ -74,7 +74,7 @@
         margin-left: auto;
         height: 100%;
 
-        @media screen and (min-width: $mobile) {
+        @media screen and (min-width: utils.plus-one($mobile)) {
             display: none;
         }
     }
@@ -158,7 +158,7 @@
         transition-property: background-color;
         transition-duration: $t-link; // different variable for link transitions
 
-        @media screen and (min-width: $mobile + 1) {
+        @media screen and (min-width: utils.plus-one($mobile)) {
             @include utils.flex-row(center);
             cursor: pointer;
         }
