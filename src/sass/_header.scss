@@ -1,6 +1,8 @@
 @use 'sass:color';
 @use 'utils';
 
+// divide into mixins for
+// layout, different hover effects / color schemes
 @mixin styles($color: null, $theme: light, $height: null, $padding: null, $mobile: 600px, $transition: .3s .25s) {
     // color
     $bg-color: utils.nth-or($color, 1);
