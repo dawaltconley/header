@@ -4,6 +4,12 @@ const gulp = require('gulp');
 const babel = require('gulp-babel');
 const sass = require('gulp-sass')(require('sass'));
 
+const mkDist = () => fsp.mkdir('dist')
+    .catch(e => {
+        if (e.code !== 'EEXIST')
+            throw e;
+    });
+
 const sassCompile = () => gulp.src('src/header.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('eleventy/_site/css'))
@@ -13,8 +19,10 @@ const sassCopy = () => gulp.src('src/sass/*')
     .pipe(gulp.dest('dist'));
 
 const dotCompile = async () => {
+    let distReady = mkDist();
     let template = await fsp.readFile('src/header.jst');
     let module = 'module.exports = ' + dot.template(template).toString();
+    await distReady;
     return Promise.all([
         fsp.writeFile('dist/template.jst', template),
         fsp.writeFile('dist/template.js', module)
