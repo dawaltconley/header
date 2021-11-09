@@ -1,6 +1,6 @@
 {
   "name": "@dawaltconley/header-basic",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "A basic header for websites.",
   "main": "index.js",
   "files": [
