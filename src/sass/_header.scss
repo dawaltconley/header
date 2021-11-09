@@ -46,10 +46,6 @@
         height: 100%;
         margin: 0;
         background-color: inherit;
-
-        @media screen and (min-width: utils.plus-one($mobile)) {
-            @include utils.flex-row();
-        }
     }
 
     &__mobile {
@@ -73,10 +69,6 @@
         @include utils.flex-row(center);
         margin-left: auto;
         height: 100%;
-
-        @media screen and (min-width: utils.plus-one($mobile)) {
-            display: none;
-        }
     }
 
     &__mobile-button {
@@ -97,31 +89,21 @@
 
 
     &__links { // data-menu-links
-        margin-left: auto;
-        height: 100%;
+        position: absolute;
+        left: 0; top: 100%;
+        width: 100%;
+        max-height: 0;
         background-color: $bg-color or inherit;
         overflow: hidden;
         transition-duration: $t-dropdown; // should change based on js or pure css
         transition-property: max-height;
         transition-timing-function: ease-out;
 
-        @media screen and (max-width: $mobile) { // originally applied to [data-menu-links]
-            position: absolute;
-            left: 0; top: 100%;
+        & > * {
             width: 100%;
-            height: auto;
-            max-height: 0;
-
-            & > * {
-                width: 100%;
-                margin-bottom: 2px;
-            }
+            margin-bottom: 2px;
         }
 
-        @media screen and (min-width: utils.plus-one($mobile)) {
-            @include utils.flex-row();
-            overflow: visible;
-        }
     }
 
     &__nav:target &__links--target {
@@ -136,48 +118,72 @@
     &__dropdown {
         min-width: 100%;
         background-color: inherit;
-
-        @media screen and (min-width: utils.plus-one($mobile)) {
-            position: absolute;
-            top: 100%;
-            left: 0;
-        }
-    }
-
-    @media screen and (min-width: utils.plus-one($mobile)) {
-        &__link-container:not(:hover) &__dropdown {
-            display: none;
-        }
     }
 
     &__link { // data-menu-link
         display: block;
-        height: 100%;
+        height: auto;
+        background-color: $bg-color-dark;
         white-space: nowrap;
-        background-color: $bg-color;
         transition-property: background-color;
         transition-duration: $t-link; // different variable for link transitions
 
-        @media screen and (min-width: utils.plus-one($mobile)) {
-            @include utils.flex-row(center);
-            cursor: pointer;
+        &:hover {
+            background-color: mix($mix-color, $bg-color-dark, 16%);
+        }
+    }
+
+    @media screen and (min-width: utils.plus-one($mobile)) {
+        &__nav {
+            @include utils.flex-row();
         }
 
-        &:hover, &-container:hover &--dropdown {
-            background-color: $bg-color-dark;
+        &__mobile-buttons {
+            display: none;
         }
 
-        @media screen and (max-width: $mobile) {
-            height: auto;
-            background-color: $bg-color-dark;
+        &__dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+        }
 
-            &:hover {
-                background-color: mix($mix-color, $bg-color-dark, 16%);
+        &__link-container:not(:hover) &__dropdown {
+            display: none;
+        }
+
+        &__links {
+            position: static;
+            @include utils.flex-row();
+            margin-left: auto;
+            width: auto;
+            height: 100%;
+            max-height: none;
+            overflow: visible;
+
+            & > * {
+                width: auto;
+                margin-bottom: 0;
             }
         }
 
-        &--sub-link {
-            height: $height;
+        &__link {
+            @include utils.flex-row(center);
+            height: 100%;
+            cursor: pointer;
+            background-color: $bg-color or inherit;
+
+            // make hover classes easier to override one
+            // probably header__link:hover and header__link--mobile:hover
+            // or something like that
+            &:hover, &-container:hover &--dropdown {
+                background-color: $bg-color-dark;
+            }
+
+            &--sub-link {
+                height: $height;
+            }
         }
+
     }
 }
