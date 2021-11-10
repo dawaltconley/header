@@ -10,7 +10,7 @@ const mkDist = () => fsp.mkdir('dist')
             throw e;
     });
 
-const sassCompile = () => gulp.src('src/header.scss')
+const sassCompile = () => gulp.src('src/default-styles.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('eleventy/_site/css'))
     .pipe(gulp.dest('dist'));
@@ -20,7 +20,7 @@ const sassCopy = () => gulp.src('src/sass/*')
 
 const dotCompile = async () => {
     let distReady = mkDist();
-    let template = await fsp.readFile('src/header.jst');
+    let template = await fsp.readFile('src/template.jst');
     let module = 'module.exports = ' + dot.template(template).toString();
     await distReady;
     return Promise.all([
