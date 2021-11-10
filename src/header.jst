@@ -1,5 +1,15 @@
 {{ var name = it.name || 'header'; }}
-{{ var classList = (...args) => [].concat(...args).filter(c => c && c.length).join(' '); }}
+{{ var classList = (...args) =>
+  [].concat(...args)
+  .filter(c => c && c.length)
+  .join(' ');
+}}
+{{ var attributes = attrObj =>
+  Object.entries(attrObj)
+    .map(([ key, value ]) =>
+      value === null ? key : `${key}="${value}"`)
+    .join(' ');
+}}
 
 {{## def.link:
   <a class="{{! classList(`${name}__link`, linkClass) }}" href="{{!link.page}}" data-menu-link>
@@ -21,8 +31,7 @@
   {{?}}
 #}}
 
-
-<header id="{{!name}}" class="{{! classList(name, it.classes) }}" data-menu data-fixed-header>
+<header id="{{!name}}" {{= attributes(it.attributes) }} data-menu data-fixed-header>
   <nav id="site-nav" class="{{!name}}__nav">
     <div class="{{!name}}__mobile">
       {{? it.logo }}

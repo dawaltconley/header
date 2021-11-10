@@ -11,11 +11,22 @@ const buildHeader = function(...args) {
         return { ...final, ...obj };
     }, {});
 
+    let { // reserve these keywords for config
+        name = 'header',
+        links = [],
+        logo, icons,
+        iconOpen, iconClose,
+        ...attr // interpret everything else as an html attribute
+    } = { ...config, ...kwargs };
+
+    delete attr.__keywords;
+    if (!attr.class || !attr.class.includes(name))
+        attr.class = name + (attr.class ? ` ${attr.class}` : '');
+
     return headerTemplate({
-        links: [],
-        name: 'header',
-        ...config,
-        ...kwargs
+        name, links, logo,
+        icons, iconOpen, iconClose,
+        attributes: attr
     });
 };
 
