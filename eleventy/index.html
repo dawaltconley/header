@@ -10,7 +10,7 @@ layout: base
 {% set logo %}{% include 'crofts-accountants.svg' %}{% endset %}
 {% set open %}{% faSvg 'bars.svg' %}{% endset %}
 {% set close %}{% faSvg 'times.svg' %}{% endset %}
-{% header header, logo=logo, iconOpen=open, iconClose=close %}
+{% header header, logo=logo, iconOpen=open, iconClose=close, foo="bar", class="other-class another-class", 'data-thing'=null %}
 
 <main>
   <p>Some main content</p>
