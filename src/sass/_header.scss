@@ -1,7 +1,7 @@
 @use 'sass:color';
 @use 'utils';
 
-// divide into mixins for
+// TODO: divide into mixins for
 // layout, different hover effects / color schemes
 @mixin styles($color: null, $theme: light, $height: null, $padding: null, $mobile: 600px, $transition: .3s .25s) {
     // color
@@ -97,7 +97,7 @@
         max-height: 0;
         background-color: $bg-color or inherit;
         overflow: hidden;
-        transition-duration: $t-dropdown; // should change based on js or pure css
+        transition-duration: $t-dropdown; // TODO should change based on js or pure css
         transition-property: max-height;
         transition-timing-function: ease-out;
 
@@ -128,7 +128,7 @@
         background-color: $bg-color-dark;
         white-space: nowrap;
         transition-property: background-color;
-        transition-duration: $t-link; // different variable for link transitions
+        transition-duration: $t-link; // TODO different variable for link transitions
 
         &:hover {
             background-color: mix($mix-color, $bg-color-dark, 16%);
@@ -175,7 +175,7 @@
             cursor: pointer;
             background-color: $bg-color or inherit;
 
-            // make hover classes easier to override one
+            // TODO make hover classes easier to override one
             // probably header__link:hover and header__link--mobile:hover
             // or something like that
             &:hover, &-container:hover &--dropdown {
