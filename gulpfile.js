@@ -1,6 +1,7 @@
 const fsp = require('fs').promises;
 const dot = require('dot');
 const gulp = require('gulp');
+const rename = require('gulp-rename');
 const babel = require('gulp-babel');
 const sass = require('gulp-sass')(require('sass'));
 
@@ -12,6 +13,7 @@ const mkDist = () => fsp.mkdir('dist')
 
 const sassCompile = () => gulp.src('src/default-styles.scss')
     .pipe(sass().on('error', sass.logError))
+    .pipe(rename('header.css'))
     .pipe(gulp.dest('eleventy/_site/css'))
     .pipe(gulp.dest('dist'));
 
