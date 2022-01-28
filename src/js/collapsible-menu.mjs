@@ -69,12 +69,4 @@ class CollapsibleMenu {
     }
 }
 
-module.exports = CollapsibleMenu;
-
-// var collapsibleMenus = toArray(document.querySelectorAll("[data-collapsible-menu]")).map(function (e) {
-//     var o = new CollapsibleMenu(e);
-//     // if (fixedHeader && fixedHeader === e) {
-//     //     fixedHeader.menu = o;
-//     // }
-//     return o;
-// });
+export default CollapsibleMenu;
