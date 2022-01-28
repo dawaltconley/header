@@ -81,11 +81,11 @@
         }
     }
 
-    &__nav:target &__mobile-button--open {
+    &__nav--target:target &__mobile-button--open {
         display: none;
     }
 
-    &__nav:not(:target) &__mobile-button--close {
+    &__nav--target:not(:target) &__mobile-button--close {
         display: none;
     }
 
@@ -108,7 +108,7 @@
 
     }
 
-    &__nav:target &__links--target {
+    &__nav--target:target &__links {
         max-height: 100vw
     }
 

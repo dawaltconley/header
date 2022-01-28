@@ -32,7 +32,7 @@
 #}}
 
 <header id="{{!name}}" {{= attributes(it.attributes) }} data-collapsible-menu data-fixed-header>
-  <nav id="site-nav" class="{{!name}}__nav">
+  <nav id="site-nav" class="{{!name}}__nav {{!name}}__nav--target">
     <div class="{{!name}}__mobile">
       {{? it.logo }}
         <a class="{{!name}}__logo" href="/">
@@ -48,13 +48,13 @@
         <a href="#site-nav" class="{{!name}}__mobile-button {{!name}}__mobile-button--open" data-menu-button="open">
           Menu{{? it.iconOpen || it.icons && it.icons.open }}&nbsp;{{= it.iconOpen || it.icons.open }}{{?}}
         </a>
-        <a href="#" class="{{!name}}__mobile-button {{!name}}__mobile-button--close" data-class-add="hidden" data-menu-button="close">
+        <a href="#" class="{{!name}}__mobile-button {{!name}}__mobile-button--close" data-menu-button="close">
           Close{{? it.iconClose || it.icons && it.icons.close }}&nbsp;{{= it.iconClose || it.icons.close }}{{?}}
         </a>
       </div>
     </div>
 
-    <div class="{{!name}}__links {{!name}}__links--target t-long" data-menu-links data-class-rm="t-long">
+    <div class="{{!name}}__links" data-menu-links>
       {{~ it.links :link }}
         {{ var isDropdown = link.dropdown && link.dropdown.length; }}
         {{? isDropdown }}

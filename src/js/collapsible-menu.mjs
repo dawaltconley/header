@@ -12,18 +12,26 @@ class CollapsibleMenu {
         this.links = element.querySelector('[data-menu-links]');
         this.state = 'closed';
 
+        const cssOnlyClasses = [ `${n}__nav--target` ];
+        const cssOnlyQueries = cssOnlyClasses.map(c => '.' + c).join(', ');
+        Array.from(element.querySelectorAll(cssOnlyQueries))
+            .forEach(e => e.classList.remove(...cssOnlyClasses));
+
         for (const button of this.buttons.close)
             if (button.hash && location.hash === button.hash)
                 location.href = location.href.replace(/#.*$/, '');
+
+        this.close();
+        this.addListeners();
     }
 
     open() {
         this.links.style.maxHeight = this.links.scrollHeight.toString() + 'px';
         this.buttons.open.forEach(function (button) {
-            button.classList.add('hidden');
+            button.style.display = 'none';
         });
         this.buttons.close.forEach(function (button) {
-            button.classList.remove('hidden');
+            button.style.display = null;
         });
         this.state = 'open';
         // this.removeListener = onScrollDown(function () {
@@ -37,13 +45,13 @@ class CollapsibleMenu {
     close() {
         this.links.style.maxHeight = '';
         this.buttons.close.forEach(function (button) {
-            button.classList.add('hidden');
+            button.style.display = 'none';
         });
         this.buttons.open.forEach(function (button) {
-            button.classList.remove('hidden');
+            button.style.display = null;
         });
         this.state = 'closed';
-        this.removeListener();
+        // this.removeListener();
     }
 
     toggle() {
@@ -58,7 +66,6 @@ class CollapsibleMenu {
         for (const method in this.buttons) {
             if (this.buttons[method]) {
                 this.buttons[method].forEach(function (button) {
-                    button.classList.remove('target-hide', 'target-display');
                     button.addEventListener('click', function (event) {
                         event.preventDefault();
                         this[method]();
