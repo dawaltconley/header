@@ -12,3 +12,6 @@ parserOptions:
 rules:
   no-unused-vars: warn
   semi: warn
+  quotes:
+    - warn
+    - single
