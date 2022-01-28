@@ -12,6 +12,7 @@ parserOptions:
   ecmaVersion: 2018
 rules:
   no-unused-vars: warn
+  no-console: warn
   semi: warn
   quotes:
     - warn
