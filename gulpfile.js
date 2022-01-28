@@ -2,7 +2,6 @@ const fsp = require('fs').promises;
 const dot = require('dot');
 const gulp = require('gulp');
 const rename = require('gulp-rename');
-const babel = require('gulp-babel');
 const sass = require('gulp-sass')(require('sass'));
 
 const mkDist = () => fsp.mkdir('dist')
@@ -32,9 +31,6 @@ const dotCompile = async () => {
 };
 
 const jsCompile = () => gulp.src('src/js/*')
-    .pipe(babel({
-        presets: [ '@babel/preset-env' ]
-    }))
     .pipe(gulp.dest('dist'));
 
 const buildPackage = gulp.parallel(dotCompile, sassCompile, sassCopy, jsCompile);
