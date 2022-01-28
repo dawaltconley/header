@@ -31,7 +31,7 @@ const dotCompile = async () => {
     ]);
 };
 
-const jsCompile = () => gulp.src('src/*.js')
+const jsCompile = () => gulp.src('src/js/*')
     .pipe(babel({
         presets: [ '@babel/preset-env' ]
     }))
@@ -47,6 +47,7 @@ const eleventySass = () => gulp.src('eleventy/_sass/*.scss')
 
 const eleventyWatch = () => {
     gulp.watch('src/_header.scss', gulp.series(sassCompile, eleventySass));
+    gulp.watch('src/js/**/*', jsCompile);
     return gulp.watch('eleventy/_sass/*scss', eleventySass);
 };
 

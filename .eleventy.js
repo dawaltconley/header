@@ -7,6 +7,8 @@ const header = require(p('index.js'));
 module.exports = eleventyConfig => {
     eleventyConfig.addPassthroughCopy('dist');
     eleventyConfig.addPassthroughCopy('eleventy/css');
+    eleventyConfig.addPassthroughCopy('eleventy/js');
+    eleventyConfig.addWatchTarget('dist');
     eleventyConfig.addWatchTarget('eleventy/css/**/*.css');
     eleventyConfig.addWatchTarget('eleventy/_sass/**/*.scss');
 
