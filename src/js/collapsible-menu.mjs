@@ -1,9 +1,3 @@
-/*
- * Collapsible Menus
- */
-
-const toArray = collection => Array.prototype.slice.call(collection);
-
 class CollapsibleMenu {
     constructor(element, opts={}) {
         let {
@@ -11,9 +5,9 @@ class CollapsibleMenu {
         } = opts;
         this.element = element;
         this.buttons = {
-            open: toArray(element.querySelectorAll('[data-menu-button="open"]')),
-            close: toArray(element.querySelectorAll('[data-menu-button="close"]')),
-            toggle: toArray(element.querySelectorAll('[data-menu-button="toggle"],[data-menu-button=""]'))
+            open: Array.from(element.querySelectorAll('[data-menu-button="open"]')),
+            close: Array.from(element.querySelectorAll('[data-menu-button="close"]')),
+            toggle: Array.from(element.querySelectorAll('[data-menu-button="toggle"],[data-menu-button=""]'))
         };
         this.links = element.querySelector('[data-menu-links]');
         this.state = 'closed';
