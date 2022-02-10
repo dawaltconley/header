@@ -90,9 +90,9 @@ class FixedHeader {
     }
 
     hide() {
-        console.log('hide');
+        const target = this.scrollable !== document.scrollingElement ? this.scrollable : window;
         this.disableScroll();
-        onScrollEnd(() => this.enableScroll());
+        onScrollEnd(() => this.enableScroll(), { target });
         this.slideUp();
         // TODO ensure menu is assigned
         if (this.menu && this.menu.state === 'open') {
