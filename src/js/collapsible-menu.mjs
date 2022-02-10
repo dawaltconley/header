@@ -1,9 +1,13 @@
+import { onScrollDown } from './utils.mjs';
+
 class CollapsibleMenu {
     constructor(element, opts={}) {
         let {
             n = 'header',
+            scrollable
         } = opts;
         this.element = element;
+        this.scrollable = scrollable;
         this.buttons = {
             open: Array.from(element.querySelectorAll('[data-menu-button="open"]')),
             close: Array.from(element.querySelectorAll('[data-menu-button="close"]')),
@@ -34,12 +38,12 @@ class CollapsibleMenu {
             button.style.display = null;
         });
         this.state = 'open';
-        // this.removeListener = onScrollDown(function () {
-        //     if (this.element.getBoundingClientRect().top <=0) {
-        //         this.close();
-        //         this.removeListener();
-        //     }
-        // }.bind(this));
+        this.removeScrollListener = onScrollDown(function () {
+            if (this.element.getBoundingClientRect().top <=0) {
+                this.close();
+                this.removeScrollListener();
+            }
+        }.bind(this), this.scrollable);
     }
 
     close() {
@@ -51,7 +55,8 @@ class CollapsibleMenu {
             button.style.display = null;
         });
         this.state = 'closed';
-        // this.removeListener();
+        if (this.removeScrollListener)
+            this.removeScrollListener();
     }
 
     toggle() {
