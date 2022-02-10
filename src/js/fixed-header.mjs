@@ -41,8 +41,8 @@ function updateDescendentIds(element, string, position='suffix', maxDepth) {
     }
 }
 
-function onScrollEnd(callback, scroller=document.scrollingElement, buffer=100) {
-    var removeListener = scroller.removeEventListener.bind(scroller, 'scroll', scrolling);
+function onScrollEnd(callback, buffer=100) {
+    var removeListener = () => window.removeEventListener('scroll', scrolling);
     var doneScrolling;
 
     function scrolling() {
@@ -53,24 +53,20 @@ function onScrollEnd(callback, scroller=document.scrollingElement, buffer=100) {
         }, buffer);
     }
 
-    scroller.addEventListener('scroll', scrolling, { passive: true });
+    window.addEventListener('scroll', scrolling, { passive: true });
     return function () {
         removeListener();
         window.clearTimeout(doneScrolling);
     };
 }
 
-// win = page if .parallax-page, else window
-// page = scrollable
-
 class FixedHeader {
-    constructor(header, scrollable = getScrollableChild(document.documentElement)) {
+    constructor(header, scrollable = header.parentElement) {
         var e = header.cloneNode(true);
         this.element = e;
-        this.scrollable = scrollable;
-        this.window = this.scrollable === document.scrollingElement ? window : this.scrollable;
+        this.scrollable = scrollable === document.body ? document.scrollingElement : scrollable;
         this.headerRef = header;
-        this.pos = scrollable.scrollTop;
+        this.pos = this.scrollable.scrollTop;
         this.refPos = this.pagePosition();
 
         this.scrollListener = this.scroll.bind(this);
@@ -140,18 +136,18 @@ class FixedHeader {
     }
 
     disableScroll() {
-        this.scrollable.removeEventListener('scroll', this.scrollListener); // TODO check if need to target different element on paralax pages
+        window.removeEventListener('scroll', this.scrollListener); // TODO check if need to target different element on paralax pages
     }
 
     enableScroll() {
         this.pos = this.scrollable.scrollTop;
-        this.scrollable.addEventListener('scroll', this.scrollListener, { passive: true }); // TODO check if need to target different element on paralax pages
+        window.addEventListener('scroll', this.scrollListener, { passive: true }); // TODO check if need to target different element on paralax pages
     }
 
     hide() {
         console.log('hide');
         this.disableScroll();
-        onScrollEnd(() => this.enableScroll(), this.scrollable);
+        onScrollEnd(() => this.enableScroll());
         this.slideUp();
         // TODO ensure menu is assigned
         if (this.menu && this.menu.state === 'open') {
@@ -197,7 +193,7 @@ class FixedHeader {
     addListeners() {
         console.log('adding listeners');
         this.enableScroll();
-        this.window.addEventListener('resize', this.resize.bind(this), { passive: true });
+        window.addEventListener('resize', this.resize.bind(this), { passive: true });
     }
 }
 
