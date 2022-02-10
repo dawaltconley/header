@@ -1,6 +1,13 @@
 import { getScrollableParent, getRelativeClientRect, updateDescendentIds, onScrollEnd } from './utils.mjs';
 
+/** Class representing a fixed/sticky header UI */
 class FixedHeader {
+    /**
+     * Create a fixed header.
+     * @param {Element} header - header parent element
+     * @param {Object} [options]
+     * @param {Element} [options.scrollable] - element to monitor for scrolling
+     */
     constructor(header, options={}) {
         let { scrollable } = options;
         var e = header.cloneNode(true);
@@ -24,30 +31,36 @@ class FixedHeader {
         updateDescendentIds(e, '-fixed');
         document.body.insertBefore(this.element, document.body.firstChild);
 
-        console.log('constructing fixed header');
         this.addListeners();
     }
 
+    /** Current scroll position of the scrolling element. */
     get scrollPos() {
         return this.scrollable.scrollTop || window.pageYOffset || 0;
     }
 
+    /**
+     * Gets the position of the original header within the page.
+     * @param {Element} [element=this.headerRef] - original header element
+     * @param {Element} [page=this.scrollable] - scrolling (usually document) element
+     */
     pagePosition(element=this.headerRef, page=this.scrollable) {
         return getRelativeClientRect(element, page);
     }
 
+    /** Hides the original header from screen readers when fixed header is displayed. */
     hideHeaderRef() {
         this.headerRef.setAttribute('aria-hidden', 'true');
         this.headerRef.setAttribute('role', 'presentation');
     }
 
+    /** Reveals the original header to screen readers when fixed header is shown. */
     showHeaderRef() {
         this.headerRef.removeAttribute('aria-hidden');
         this.headerRef.removeAttribute('role');
     }
 
     scroll() {
-        console.log('scrolling');
         var f = this;
         var e = this.element;
         var scrollPos = this.scrollPos;
@@ -80,26 +93,29 @@ class FixedHeader {
         f.pos = scrollPos;
     }
 
+    /** Remove scroll listeners */
     disableScroll() {
         window.removeEventListener('scroll', this.scrollListener); // TODO check if need to target different element on paralax pages
     }
 
+    /** Enable scroll listeners */
     enableScroll() {
         this.pos = this.scrollPos;
         window.addEventListener('scroll', this.scrollListener, { passive: true }); // TODO check if need to target different element on paralax pages
     }
 
+    /** Hide the fixed header (usually when returning to the top of the document and using the reference header). */
     hide() {
         const target = this.scrollable !== document.scrollingElement ? this.scrollable : window;
         this.disableScroll();
         onScrollEnd(() => this.enableScroll(), { target });
         this.slideUp();
-        // TODO ensure menu is assigned
         if (this.menu && this.menu.state === 'open') {
             this.menu.close();
         }
     }
 
+    /** Matches the fixed header dimensions to the original (reference) header. */
     matchRef() {
         this.refPos = this.pagePosition();
         this.height = this.headerRef.clientHeight;
@@ -109,6 +125,7 @@ class FixedHeader {
         });
     }
 
+    /** Handle window resizing events, since this can change scroll position in page. */
     resize() {
         this.disableScroll();
         this.matchRef();
@@ -116,8 +133,12 @@ class FixedHeader {
         this.doneResizing = window.setTimeout(this.enableScroll(), 100);
     }
 
+    /**
+     * Animate sliding the fixed header up or down (into or out of view). Usually based on scroll.
+     * @param {('up'|'down')} direction
+     * @param {function} [callback] - function to call when done sliding
+     */
     slide(direction, callback = () => null) {
-        console.log('sliding');
         var t = parseInt(this.element.style.top);
         var b = t + this.height;
         if (this.interruptSlide) { return null; } // run callback?
@@ -131,17 +152,19 @@ class FixedHeader {
         window.setTimeout(callback, 50);
     }
 
-    setShadow(b = parseInt(this.element.style.top) + this.height) {
-        this.element.style.boxShadow = '0 ' + (b/32).toString() + 'px ' + (b/16).toString() + 'px 0 rgba(0, 0, 0, 0.2)';
+    /**
+     * Add a box shadow to the fixed header.
+     * @param {number} [size] - number to use to set the shadow height (defaults to visible header size)
+     */
+    setShadow(size = parseInt(this.element.style.top) + this.height) {
+        this.element.style.boxShadow = `0 ${size/32}px ${size/16}px 0 rgba(0, 0, 0, 0.2)`;
     }
 
+    /** Adds all event listeners. Called during construction. */
     addListeners() {
-        console.log('adding listeners');
         this.enableScroll();
         window.addEventListener('resize', this.resize.bind(this), { passive: true });
     }
 }
-
-console.log('test');
 
 export default FixedHeader;
