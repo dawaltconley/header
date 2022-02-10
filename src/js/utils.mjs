@@ -41,20 +41,21 @@ function updateDescendentIds(element, string, position='suffix', maxDepth) {
     }
 }
 
-function onScrollEnd(callback, buffer=100) {
-    var removeListener = () => window.removeEventListener('scroll', scrolling);
-    var doneScrolling;
+function onScrollEnd(callback, opts={}) {
+    const { buffer = 100, target = window } = opts;
+    const removeListener = () => target.removeEventListener('scroll', scrolling);
+    let doneScrolling;
 
     function scrolling() {
         window.clearTimeout(doneScrolling);
-        doneScrolling = window.setTimeout(function () {
+        doneScrolling = window.setTimeout(() => {
             removeListener();
             callback();
         }, buffer);
     }
 
-    window.addEventListener('scroll', scrolling, { passive: true });
-    return function () {
+    target.addEventListener('scroll', scrolling, { passive: true });
+    return () => {
         removeListener();
         window.clearTimeout(doneScrolling);
     };
