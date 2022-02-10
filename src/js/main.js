@@ -14,12 +14,4 @@ const collapsibleMenus = Array.from(document.querySelectorAll('[data-collapsible
         return o;
     });
 
-collapsibleMenus.forEach(function (menu) {
-    menu.buttons.open.forEach(function (button) {
-        if (button.hash && location.hash === button.hash) {
-            location.href = location.href.replace(/#.*$/, '');
-        }
-    });
-});
-
 export { fixedHeader, collapsibleMenus };
