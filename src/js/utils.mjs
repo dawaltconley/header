@@ -1,11 +1,38 @@
 /**
+ * Checks whether an element can be scrolled.
+ *
+ * @param {Element} element
+ */
+function isScrollable(element) {
+    return element.scrollHeight > element.clientHeight;
+}
+
+/**
+ * Returns the first parent of an element that can be scrolled.
+ *
+ * @param {Element} element - element to start from
+ * @param {number} [maxDepth] - maximum number of parents to check
+ */
+function getScrollableParent(element, maxDepth) {
+    var ancestor = element;
+    while (ancestor !== document.documentElement && maxDepth !== 0) {
+        ancestor = ancestor.parentElement;
+        if (isScrollable(ancestor)) {
+            return ancestor;
+        }
+        maxDepth -= 1;
+    }
+    return null;
+}
+
+/**
  * Returns the first child of an element that can be scrolled.
  *
  * @param {Element} element - element to start from
  * @param {number} [maxDepth=2] - maximum number of children to check
  */
 function getScrollableChild(element, maxDepth=2, currentDepth=0) {
-    if (element.scrollHeight > element.clientHeight) {
+    if (isScrollable(element)) {
         return element;
     }
     for (var i = 0; element.children && i < element.children.length && maxDepth > currentDepth; i++) {
@@ -114,6 +141,7 @@ function onScrollEnd(callback, opts={}) {
 }
 
 export {
+    getScrollableParent,
     getScrollableChild,
     getRelativeClientRect, 
     updateDescendentIds,
