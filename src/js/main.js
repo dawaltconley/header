@@ -1,17 +1,12 @@
 import CollapsibleMenu from './collapsible-menu.mjs';
 import FixedHeader from './fixed-header.mjs';
 
-let fixedHeader = document.querySelector('[data-fixed-header]');
+const constructor = (element, options) => {
+    let original = new CollapsibleMenu(element, options);
+    let fixed = new FixedHeader(element, options);
+    fixed.menu = new CollapsibleMenu(fixed.element, options);
 
-if (fixedHeader)
-    fixedHeader = new FixedHeader(fixedHeader);
+    return { original, fixed };
+};
 
-const collapsibleMenus = Array.from(document.querySelectorAll('[data-collapsible-menu]'))
-    .map(e => {
-        const o = new CollapsibleMenu(e);
-        if (fixedHeader && fixedHeader.element === e)
-            fixedHeader.menu = o;
-        return o;
-    });
-
-export { fixedHeader, collapsibleMenus };
+export default constructor;
