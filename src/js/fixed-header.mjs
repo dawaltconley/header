@@ -9,8 +9,8 @@ class FixedHeader {
      * @param {Element} [options.scrollable] - element to monitor for scrolling
      */
     constructor(header, options={}) {
-        let { scrollable } = options;
-        var e = header.cloneNode(true);
+        const { scrollable } = options;
+        const e = header.cloneNode(true);
         this.element = e;
         this.scrollable = scrollable || getScrollableParent(header);
         this.headerRef = header;
@@ -60,37 +60,37 @@ class FixedHeader {
         this.headerRef.removeAttribute('role');
     }
 
+    /** Handles scroll behavior, revealing or hiding fixed header, and triggering slide if partially visible. */
     scroll() {
-        var f = this;
-        var e = this.element;
-        var scrollPos = this.scrollPos;
-        var scrollDiff = scrollPos - f.pos;
-        window.clearTimeout(f.doneScrolling);
-        f.doneScrolling = window.setTimeout(function () {
-            f.interruptSlide = false;
+        const e = this.element;
+        const scrollPos = this.scrollPos;
+        const scrollDiff = scrollPos - this.pos;
+        window.clearTimeout(this.doneScrolling);
+        this.doneScrolling = window.setTimeout(() => {
+            this.interruptSlide = false;
         }, 50);
-        if (e.style.display !== 'none' && scrollPos > f.refPos.top || e.style.display === 'none' && scrollPos > f.refPos.bottom) {
+        if (e.style.display !== 'none' && scrollPos > this.refPos.top || e.style.display === 'none' && scrollPos > this.refPos.bottom) {
             e.style.display = '';
-            f.hideHeaderRef();
-            f.interruptSlide = true;
-            var top = parseInt(e.style.top);
-            if (scrollDiff < 0 && top < 0 || scrollDiff > 0 && top > -f.height) {
-                top = Math.min(Math.max(top - scrollDiff, -f.height), 0);
+            this.hideHeaderRef();
+            this.interruptSlide = true;
+            let top = parseInt(e.style.top);
+            if (scrollDiff < 0 && top < 0 || scrollDiff > 0 && top > -this.height) {
+                top = Math.min(Math.max(top - scrollDiff, -this.height), 0);
                 e.style.top = top.toString() + 'px';
-                f.setShadow(top + f.height);
-                f.doneScrolling = window.setTimeout(function () {
-                    requestAnimationFrame(f.slideDown.bind(f));
+                this.setShadow(top + this.height);
+                this.doneScrolling = window.setTimeout(() => {
+                    requestAnimationFrame(this.slideDown.bind(this));
                 }, 500);
             }
         } else if (e.style.display !== 'none') {
-            f.showHeaderRef();
+            this.showHeaderRef();
             Object.assign(e.style, {
                 display: 'none',
-                top: -f.height.toString() + 'px'
+                top: -this.height.toString() + 'px'
             });
-            f.setShadow();
+            this.setShadow();
         }
-        f.pos = scrollPos;
+        this.pos = scrollPos;
     }
 
     /** Remove scroll listeners */
@@ -139,11 +139,11 @@ class FixedHeader {
      * @param {function} [callback] - function to call when done sliding
      */
     slide(direction, callback = () => null) {
-        var t = parseInt(this.element.style.top);
-        var b = t + this.height;
+        const t = parseInt(this.element.style.top);
+        const b = t + this.height;
         if (this.interruptSlide) { return null; } // run callback?
         if (direction === 'down' && t < 0 || direction === 'up' && b > 0) {
-            var dist = direction === 'down' ? Math.min(t/5, -1) : Math.max(b/5, 1);
+            const dist = direction === 'down' ? Math.min(t/5, -1) : Math.max(b/5, 1);
             this.element.style.top = (t - dist).toString() + 'px';
             window.clearTimeout(callback);
             requestAnimationFrame(this.slide.bind(this, direction, callback));
