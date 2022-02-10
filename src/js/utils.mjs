@@ -41,6 +41,23 @@ function updateDescendentIds(element, string, position='suffix', maxDepth) {
     }
 }
 
+function onScroll(direction, callback, target=window) {
+    let oldPos;
+    const scrolling = () => {
+        const newPos = target.pageYOffset || target.scrollTop || 0;
+        if (oldPos && (newPos < oldPos && direction === 'up') || (newPos > oldPos && direction === 'down')) {
+            callback();
+        }
+        oldPos = newPos;
+    };
+
+    target.addEventListener('scroll', scrolling, { passive: true });
+    return () => target.removeEventListener('scroll', scrolling);
+}
+
+const onScrollUp = onScroll.bind(null, 'up');
+const onScrollDown = onScroll.bind(null, 'down');
+
 function onScrollEnd(callback, opts={}) {
     const { buffer = 100, target = window } = opts;
     const removeListener = () => target.removeEventListener('scroll', scrolling);
@@ -65,5 +82,7 @@ export {
     getScrollableChild,
     getRelativeClientRect, 
     updateDescendentIds,
+    onScrollUp,
+    onScrollDown,
     onScrollEnd,
 };
