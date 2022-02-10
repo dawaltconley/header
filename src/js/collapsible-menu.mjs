@@ -47,12 +47,12 @@ class CollapsibleMenu {
             button.style.display = null;
         });
         this.state = 'open';
-        this.removeScrollListener = onScrollDown(function () {
+        this.removeScrollListener = onScrollDown(() => {
             if (this.element.getBoundingClientRect().top <=0) {
                 this.close();
                 this.removeScrollListener();
             }
-        }.bind(this), this.scrollable);
+        }, this.scrollable);
     }
 
     /** Collapse the menu */
@@ -82,12 +82,12 @@ class CollapsibleMenu {
     addListeners() {
         for (const method in this.buttons) {
             if (this.buttons[method]) {
-                this.buttons[method].forEach(function (button) {
-                    button.addEventListener('click', function (event) {
+                this.buttons[method].forEach(button => {
+                    button.addEventListener('click', event => {
                         event.preventDefault();
                         this[method]();
-                    }.bind(this));
-                }, this);
+                    });
+                });
             }
         }
     }
