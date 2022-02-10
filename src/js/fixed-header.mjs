@@ -1,12 +1,13 @@
-import { getRelativeClientRect, updateDescendentIds, onScrollEnd } from './utils.mjs';
+import { getScrollableParent, getRelativeClientRect, updateDescendentIds, onScrollEnd } from './utils.mjs';
 
 class FixedHeader {
-    constructor(header, scrollable = header.parentElement) {
+    constructor(header, options={}) {
+        let { scrollable } = options;
         var e = header.cloneNode(true);
         this.element = e;
-        this.scrollable = scrollable === document.body ? document.scrollingElement : scrollable;
+        this.scrollable = scrollable || getScrollableParent(header);
         this.headerRef = header;
-        this.pos = this.scrollable.scrollTop;
+        this.pos = this.scrollPos;
         this.refPos = this.pagePosition();
 
         this.scrollListener = this.scroll.bind(this);
@@ -27,6 +28,10 @@ class FixedHeader {
         this.addListeners();
     }
 
+    get scrollPos() {
+        return this.scrollable.scrollTop || window.pageYOffset || 0;
+    }
+
     pagePosition(element=this.headerRef, page=this.scrollable) {
         return getRelativeClientRect(element, page);
     }
@@ -45,13 +50,13 @@ class FixedHeader {
         console.log('scrolling');
         var f = this;
         var e = this.element;
-        var pos = this.scrollable.scrollTop;
-        var scrollDiff = pos - f.pos;
+        var scrollPos = this.scrollPos;
+        var scrollDiff = scrollPos - f.pos;
         window.clearTimeout(f.doneScrolling);
         f.doneScrolling = window.setTimeout(function () {
             f.interruptSlide = false;
         }, 50);
-        if (e.style.display !== 'none' && pos > f.refPos.top || e.style.display === 'none' && pos > f.refPos.bottom) {
+        if (e.style.display !== 'none' && scrollPos > f.refPos.top || e.style.display === 'none' && scrollPos > f.refPos.bottom) {
             e.style.display = '';
             f.hideHeaderRef();
             f.interruptSlide = true;
@@ -72,7 +77,7 @@ class FixedHeader {
             });
             f.setShadow();
         }
-        f.pos = pos;
+        f.pos = scrollPos;
     }
 
     disableScroll() {
@@ -80,7 +85,7 @@ class FixedHeader {
     }
 
     enableScroll() {
-        this.pos = this.scrollable.scrollTop;
+        this.pos = this.scrollPos;
         window.addEventListener('scroll', this.scrollListener, { passive: true }); // TODO check if need to target different element on paralax pages
     }
 
