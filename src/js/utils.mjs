@@ -2,6 +2,7 @@
  * Checks whether an element can be scrolled.
  *
  * @param {Element} element
+ * @return {boolean}
  */
 function isScrollable(element) {
     return element.scrollHeight > element.clientHeight;
@@ -12,6 +13,7 @@ function isScrollable(element) {
  *
  * @param {Element} element - element to start from
  * @param {number} [maxDepth] - maximum number of parents to check
+ * @return {Element|null}
  */
 function getScrollableParent(element, maxDepth) {
     var ancestor = element;
@@ -30,6 +32,7 @@ function getScrollableParent(element, maxDepth) {
  *
  * @param {Element} element - element to start from
  * @param {number} [maxDepth=2] - maximum number of children to check
+ * @return {Element|null}
  */
 function getScrollableChild(element, maxDepth=2, currentDepth=0) {
     if (isScrollable(element)) {
@@ -50,6 +53,7 @@ function getScrollableChild(element, maxDepth=2, currentDepth=0) {
  *
  * @param {Element} child
  * @param {Element} parent
+ * @return {DOMRect}
  */
 function getRelativeClientRect(child, parent) {
     var cRect = child.getBoundingClientRect();
@@ -94,6 +98,7 @@ function updateDescendentIds(element, string, position='suffix', maxDepth) {
  * @param {('up'|'down')} direction - the direction of the scroll to listen for
  * @param {function} callback - the function to execute on scroll
  * @param {EventTarget} [target=window] - the element / target to watch for scroll events
+ * @return {function} - function to remove scroll listener
  */
 function onScroll(direction, callback, target=window) {
     let oldPos;
@@ -119,9 +124,10 @@ const onScrollDown = onScroll.bind(null, 'down');
  * @param {Object} [options]
  * @param {number} [options.buffer=100] - time in milliseconds to wait for scroll event before executing callback
  * @param {EventTarget} [options.target=window] - the target to attach the scroll listener to
+ * @return {function} - function to remove scroll listener
  */
-function onScrollEnd(callback, opts={}) {
-    const { buffer = 100, target = window } = opts;
+function onScrollEnd(callback, options={}) {
+    const { buffer = 100, target = window } = options;
     const removeListener = () => target.removeEventListener('scroll', scrolling);
     let doneScrolling;
 

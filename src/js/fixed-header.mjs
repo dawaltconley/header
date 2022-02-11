@@ -34,7 +34,10 @@ class FixedHeader {
         this.addListeners();
     }
 
-    /** Current scroll position of the scrolling element. */
+    /**
+     * Current scroll position of the scrolling element.
+     * @type {number}
+     */
     get scrollPos() {
         return this.scrollable.scrollTop || window.pageYOffset || 0;
     }
@@ -43,6 +46,7 @@ class FixedHeader {
      * Gets the position of the original header within the page.
      * @param {Element} [element=this.headerRef] - original header element
      * @param {Element} [page=this.scrollable] - scrolling (usually document) element
+     * @return {DOMRect}
      */
     pagePosition(element=this.headerRef, page=this.scrollable) {
         return getRelativeClientRect(element, page);
