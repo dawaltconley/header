@@ -1,6 +1,6 @@
 {
   "name": "@dawaltconley/header-basic",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "A simple, modular website header.",
   "main": "index.mjs",
   "exports": {
