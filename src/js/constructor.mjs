@@ -7,6 +7,7 @@ import FixedHeader from './fixed-header.mjs';
  * @param {Object} [options]
  * @param {string} [options.name='header'] - base name for BEM classes
  * @param {Element} [options.scrollable=document.scrollingElement] - element to monitor for scrolling
+ * @returns {Object}
  */
 export default (element, options) => {
     let original = new CollapsibleMenu(element, options);
