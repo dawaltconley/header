@@ -3,6 +3,7 @@ import FixedHeader from './fixed-header.mjs';
 
 /**
  * Create a fixed header and collapsible menu from the same element.
+ * @name default
  * @param {Element} element - header parent element
  * @param {Object} [options]
  * @param {string} [options.name='header'] - base name for BEM classes

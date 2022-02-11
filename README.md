@@ -118,7 +118,7 @@ And then use these tags in your templates.
 
 #### Table of Contents
 
-*   [constructor](#constructor)
+*   [default](#default)
 *   [generateHtml](#generatehtml)
 *   [eleventy](#eleventy)
 *   [KeywordArguments](#keywordarguments)
@@ -128,7 +128,7 @@ And then use these tags in your templates.
 *   [FixedHeader](#fixedheader)
 *   [CollapsibleMenu](#collapsiblemenu)
 
-### constructor
+### default
 
 Create a fixed header and collapsible menu from the same element.
 
