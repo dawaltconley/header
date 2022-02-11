@@ -1,4 +1,4 @@
-import makeHeader from '../dist/main.js';
+import makeHeader from '../dist/js/constructor.mjs';
 
 let results = makeHeader(document.getElementById('header'));
 

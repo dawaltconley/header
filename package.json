@@ -2,8 +2,13 @@
   "name": "@dawaltconley/header-basic",
   "version": "0.2.4",
   "description": "A basic header for websites.",
-  "main": "index.js",
+  "main": "index.mjs",
+  "exports": {
+    "import": "./index.mjs",
+    "require": "./index.cjs"
+  },
   "files": [
+    "_header.scss",
     "dist/**/*"
   ],
   "scripts": {

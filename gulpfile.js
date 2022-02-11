@@ -17,7 +17,7 @@ const sassCompile = () => gulp.src('src/default-styles.scss')
     .pipe(gulp.dest('dist'));
 
 const sassCopy = () => gulp.src('src/sass/*')
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist/sass'));
 
 const dotCompile = async () => {
     let distReady = mkDist();
@@ -31,7 +31,7 @@ const dotCompile = async () => {
 };
 
 const jsCompile = () => gulp.src('src/js/*')
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist/js'));
 
 const buildPackage = gulp.parallel(dotCompile, sassCompile, sassCopy, jsCompile);
 

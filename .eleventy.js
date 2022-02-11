@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const p = (...args) => path.join(__dirname, ...args);
 const yaml = require('js-yaml');
-const header = require(p('index.js'));
+const header = require(p('index.cjs'));
 
 module.exports = eleventyConfig => {
     eleventyConfig.addPassthroughCopy('dist');
