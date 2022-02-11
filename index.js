@@ -30,6 +30,8 @@ const buildHeader = function(...args) {
     });
 };
 
+module.exports.generateHtml = buildHeader;
+
 module.exports.eleventy = (eleventyConfig, opts={}) => {
     let { tagName = 'header' } = opts;
     eleventyConfig.addNunjucksShortcode(tagName, buildHeader);
