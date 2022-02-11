@@ -1,6 +1,6 @@
 /**
  * Checks whether an element can be scrolled.
- *
+ * @private
  * @param {Element} element
  * @return {boolean}
  */
@@ -10,7 +10,7 @@ function isScrollable(element) {
 
 /**
  * Returns the first parent of an element that can be scrolled.
- *
+ * @private
  * @param {Element} element - element to start from
  * @param {number} [maxDepth] - maximum number of parents to check
  * @return {Element|null}
@@ -29,7 +29,7 @@ function getScrollableParent(element, maxDepth) {
 
 /**
  * Returns the first child of an element that can be scrolled.
- *
+ * @private
  * @param {Element} element - element to start from
  * @param {number} [maxDepth=2] - maximum number of children to check
  * @return {Element|null}
@@ -50,7 +50,7 @@ function getScrollableChild(element, maxDepth=2, currentDepth=0) {
 
 /**
  * Get bounding client rect relative to an element's container.
- *
+ * @private
  * @param {Element} child
  * @param {Element} parent
  * @return {DOMRect}
@@ -75,7 +75,7 @@ function getRelativeClientRect(child, parent) {
 
 /**
  * Prefix or suffix all ids in an element and its children.
- *
+ * @private
  * @param {Element} element - the parent element to update from
  * @param {string} string - the string to prefix or suffix
  * @param {('prefix'|'suffix')} [position='suffix'] - whether to prefix or suffix
@@ -94,7 +94,7 @@ function updateDescendentIds(element, string, position='suffix', maxDepth) {
 
 /**
  * Execute a function on a particular scroll direction.
- *
+ * @private
  * @param {('up'|'down')} direction - the direction of the scroll to listen for
  * @param {function} callback - the function to execute on scroll
  * @param {EventTarget} [target=window] - the element / target to watch for scroll events
@@ -119,7 +119,7 @@ const onScrollDown = onScroll.bind(null, 'down');
 
 /**
  * Executes a function when scrolling is complete.
- *
+ * @private
  * @param {function} callback - function to be called when done scrolling
  * @param {Object} [options]
  * @param {number} [options.buffer=100] - time in milliseconds to wait for scroll event before executing callback
