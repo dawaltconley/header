@@ -43,5 +43,19 @@
   },
   "dependencies": {
     "liquid-args": "^1.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dawaltconley/header.git"
+  },
+  "keywords": [
+    "header",
+    "web",
+    "scss",
+    "eleventy-plugin"
+  ],
+  "bugs": {
+    "url": "https://github.com/dawaltconley/header/issues"
+  },
+  "homepage": "https://github.com/dawaltconley/header#readme"
 }
