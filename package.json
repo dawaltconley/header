@@ -8,6 +8,8 @@
     "require": "./index.cjs"
   },
   "files": [
+    "index.mjs",
+    "index.cjs",
     "_header.scss",
     "dist/**/*"
   ],
