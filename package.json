@@ -15,7 +15,7 @@
     "build": "npx gulp build",
     "test": "npx gulp eleventy; npx @11ty/eleventy",
     "serve": "npx gulp eleventyWatch & npx @11ty/eleventy --serve",
-    "prepublishOnly": "npm run test"
+    "prepublishOnly": "rm -r dist; npm run build; npm run test"
   },
   "author": "Dylan Awalt-Conley",
   "license": "ISC",
