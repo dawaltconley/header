@@ -140,6 +140,8 @@ Create a fixed header and collapsible menu from the same element.
     *   `options.name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** base name for BEM classes (optional, default `'header'`)
     *   `options.scrollable` **[Element](https://developer.mozilla.org/docs/Web/API/Element)** element to monitor for scrolling (optional, default `document.scrollingElement`)
 
+Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
+
 ### generateHtml
 
 Generates html for the header element.
