@@ -1,26 +1,24 @@
 # Basic Header
 
-A simple, modular website header. Html, CSS, and Javascript all loaded and included separately, and support various means of inclusion in a project.
+A simple, modular website header. Html, CSS, and JavaScript all loaded and included separately, and support various means of inclusion in a project.
 
 ## Contents
 
-The `index.mjs` entrypoint exposes browser and server javascript for EMS imports. The `index.cjs` entrypoint only exposes server javascript (for building the header html) to CommonJS. Browser-only code can be imported directly from dist files (probably `dist/js/constructor.mjs`).
+The base module expose server-side functions for building the header html. 
 
-    index.mjs
-    index.cjs
-    _header.scss
-    dist
-    ├── header.css
-    ├── js
-    │   ├── collapsible-menu.mjs
-    │   ├── constructor.mjs
-    │   ├── fixed-header.mjs
-    │   └── utils.mjs
-    ├── sass
-    │   ├── _header.scss
-    │   └── _utils.scss
-    ├── template.js
-    └── template.jst
+```javascript
+import { generateHtml, eleventy } from '@dawaltconley/header-basic';
+```
+
+Browser-only code can be imported from the `browser` submodule, or directly from the relevant `js` submodules.
+
+```javascript
+import makeHeader, { FixedHeader, CollapsibleMenu } from '@dawaltconley/header-basic/browser';
+// or...
+import makeHeader from '@dawaltconley/header-basic/js/constructor';
+import FixedHeader from '@dawaltconley/header-basic/js/fixed-header';
+import CollapsibleMenu from '@dawaltconley/header-basic/js/collapsible-menu';
+```
 
 ## Usage
 
