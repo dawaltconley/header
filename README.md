@@ -119,14 +119,14 @@ And then use these tags in your templates.
 #### Table of Contents
 
 *   [default](#default)
+*   [FixedHeader](#fixedheader)
+*   [CollapsibleMenu](#collapsiblemenu)
 *   [generateHtml](#generatehtml)
 *   [eleventy](#eleventy)
 *   [KeywordArguments](#keywordarguments)
 *   [Link](#link)
 *   [Logo](#logo)
 *   [Icons](#icons)
-*   [FixedHeader](#fixedheader)
-*   [CollapsibleMenu](#collapsiblemenu)
 
 ### default
 
@@ -141,78 +141,6 @@ Create a fixed header and collapsible menu from the same element.
     *   `options.scrollable` **[Element](https://developer.mozilla.org/docs/Web/API/Element)** element to monitor for scrolling (optional, default `document.scrollingElement`)
 
 Returns **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
-
-### generateHtml
-
-Generates html for the header element.
-
-#### Parameters
-
-*   `args` **...[KeywordArguments](#keywordarguments)** one or more kwarg objects
-
-Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** header html
-
-### eleventy
-
-Eleventy plugin for the generateHtml function.
-Supports inserting html via Nunjucks and Liquid tags.
-
-#### Parameters
-
-*   `eleventyConfig`  
-*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?**  (optional, default `{}`)
-
-    *   `options.tagName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**  (optional, default `'header'`)
-
-### KeywordArguments
-
-The key/value pairs used in for the `generateHtml` function and templating tags.
-
-Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
-
-#### Properties
-
-*   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** base name for element id and BEM classes
-*   `links` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Link](#link)>?** array of links displayed in the header
-*   `logo` **([Logo](#logo) | [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))?** header logo. can pass a Logo object or directly pass an html string
-*   `icons` **[Icons](#icons)?** open and close icons
-*   `iconOpen` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** html string for the open icon
-*   `iconClose` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** html string for the close icon
-*   `attributeName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** interpret all other key/value pairs as attribute names/values in the parent `<header>` element
-
-### Link
-
-An object representing a header link.
-
-Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
-
-#### Properties
-
-*   `text` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the link's text, as displayed to the user
-*   `page` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the href value of the link
-*   `dropdown` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Link](#link)>?** a nested array of links, visible as a dropdown
-
-### Logo
-
-An object representing a logo `<img>` in the header.
-
-Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
-
-#### Properties
-
-*   `src` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-*   `alt` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
-
-### Icons
-
-An object for open and close icons in the header.
-
-Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
-
-#### Properties
-
-*   `open` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** html string for the open icon
-*   `close` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** html string for the close icon
 
 ### FixedHeader
 
@@ -317,3 +245,75 @@ Toggle the menu, collapsed or expanded.
 #### addListeners
 
 Attempts to add listeners for CollapsibleMenu methods. Called during construction.
+
+### generateHtml
+
+Generates html for the header element.
+
+#### Parameters
+
+*   `args` **...[KeywordArguments](#keywordarguments)** one or more kwarg objects
+
+Returns **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** header html
+
+### eleventy
+
+Eleventy plugin for the generateHtml function.
+Supports inserting html via Nunjucks and Liquid tags.
+
+#### Parameters
+
+*   `eleventyConfig`  
+*   `options` **[Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)?**  (optional, default `{}`)
+
+    *   `options.tagName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)**  (optional, default `'header'`)
+
+### KeywordArguments
+
+The key/value pairs used in for the `generateHtml` function and templating tags.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `name` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** base name for element id and BEM classes
+*   `links` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Link](#link)>?** array of links displayed in the header
+*   `logo` **([Logo](#logo) | [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String))?** header logo. can pass a Logo object or directly pass an html string
+*   `icons` **[Icons](#icons)?** open and close icons
+*   `iconOpen` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** html string for the open icon
+*   `iconClose` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** html string for the close icon
+*   `attributeName` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** interpret all other key/value pairs as attribute names/values in the parent `<header>` element
+
+### Link
+
+An object representing a header link.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `text` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** the link's text, as displayed to the user
+*   `page` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)?** the href value of the link
+*   `dropdown` **[Array](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array)<[Link](#link)>?** a nested array of links, visible as a dropdown
+
+### Logo
+
+An object representing a logo `<img>` in the header.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `src` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+*   `alt` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
+
+### Icons
+
+An object for open and close icons in the header.
+
+Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)
+
+#### Properties
+
+*   `open` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** html string for the open icon
+*   `close` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** html string for the close icon
