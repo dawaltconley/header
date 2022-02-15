@@ -43,7 +43,7 @@ let header = generateHtml({
 
 <!-- TODO needs better documentation -->
 
-The `dist/header.css` file contains minimal styles that can be used without Scss. However you can customize things easier with the `style` mixin.
+The `dist/header.css` file contains minimal styles that can be used without Scss. However you can more easily customize things with the `style` mixin.
 
 ```scss
 @use '@dawaltconley/header-basic/header';
@@ -53,9 +53,9 @@ The `dist/header.css` file contains minimal styles that can be used without Scss
 }
 ```
 
-### Javascript
+### JavaScript
 
-Simply pass the header element (generated above) into the browser submodule.
+For a fixed _and_ collapsible header UI, simply pass the header element (generated above) into the browser submodule.
 
 ```javascript
 import makeHeader from '@dawaltconley/header-basic/browser';
