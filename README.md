@@ -57,10 +57,10 @@ The `dist/header.css` file contains minimal styles that can be used without Scss
 
 ### Javascript
 
-Simply import the module and pass it the header element (generated above).
+Simply pass the header element (generated above) into the browser submodule.
 
 ```javascript
-import makeHeader from '@dawaltconley/header-basic';
+import makeHeader from '@dawaltconley/header-basic/browser';
 
 let headerElement = document.getElementById('header'); // this id corresponds to the 'name' option
 
@@ -105,7 +105,7 @@ And then use these tags in your templates.
 ```nunjucks
 <!-- index.html -->
 <body>
-  {% header header, class="other-class another-class", 'data-thing'=null %}
+  {% header header, class="other-class another-class", 'data-attr'=null %}
   <main>
     <p>Some main content</p>
   </main>
