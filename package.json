@@ -4,8 +4,12 @@
   "description": "A simple, modular website header.",
   "main": "index.mjs",
   "exports": {
-    "import": "./index.mjs",
-    "require": "./index.cjs"
+    ".": {
+      "import": "./index.mjs",
+      "require": "./index.cjs"
+    },
+    "./browser": "./dist/js/browser.mjs",
+    "./js/*": "./dist/js/*.mjs"
   },
   "files": [
     "index.mjs",
