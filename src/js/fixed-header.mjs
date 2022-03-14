@@ -12,7 +12,7 @@ class FixedHeader {
         const { scrollable } = options;
         const e = header.cloneNode(true);
         this.element = e;
-        this.scrollable = scrollable || getScrollableParent(header);
+        this.scrollable = scrollable || getScrollableParent(header) || document.documentElement;
         this.headerRef = header;
         this.pos = this.scrollPos;
         this.refPos = this.pagePosition();
