@@ -14,7 +14,7 @@
   "files": [
     "index.mjs",
     "index.cjs",
-    "_header.scss",
+    "_index.scss",
     "dist/**/*"
   ],
   "scripts": {

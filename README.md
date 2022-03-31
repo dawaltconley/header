@@ -46,10 +46,10 @@ let header = generateHtml({
 The `dist/header.css` file contains minimal styles that can be used without Scss. However you can more easily customize things with the `style` mixin.
 
 ```scss
-@use '@dawaltconley/header-basic/header';
+@use '@dawaltconley/header-basic';
 
 .header-class {
-  @include header.styles($color: #333 white, $transition: .3s .25s);
+  @include header-basic.styles($color: #333 white, $transition: .3s .25s);
 }
 ```
 
