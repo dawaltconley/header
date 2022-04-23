@@ -19,7 +19,7 @@
     $mix-color: utils.is-color($text-color) and $text-color or $fallback-color;
     $bg-color-dark: rgba($mix-color, 0.16);
     @if utils.is-color($bg-color) {
-        $bg-color-dark: mix($mix-color, $bg-color, 16%);
+        $bg-color-dark: color.mix($mix-color, $bg-color, 16%);
     }
 
     // transitions
@@ -131,7 +131,7 @@
         transition-duration: $t-link; // TODO different variable for link transitions
 
         &:hover {
-            background-color: mix($mix-color, $bg-color-dark, 16%);
+            background-color: color.mix($mix-color, $bg-color-dark, 16%);
         }
     }
 
