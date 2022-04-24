@@ -42,7 +42,8 @@ const eleventySass = () => gulp.src('eleventy/_sass/*.scss')
     .pipe(gulp.dest('eleventy/_site/css/sass'));
 
 const eleventyWatch = () => {
-    gulp.watch('src/_header.scss', gulp.series(sassCompile, eleventySass));
+    gulp.watch('src/**/*.scss',
+        gulp.series(gulp.parallel(sassCompile, sassCopy), eleventySass));
     gulp.watch('src/js/**/*', jsCompile);
     return gulp.watch('eleventy/_sass/*scss', eleventySass);
 };
