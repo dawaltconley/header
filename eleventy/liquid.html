@@ -3,9 +3,12 @@ templateEngineOverride: liquid
 layout: base
 ---
 
-<link rel="stylesheet" href="{{ '/css/header.css' | url }}">
-<link rel="stylesheet" href="{{ '/css/main.css' | url }}">
+{% block css %}
+  <link rel="stylesheet" href="{{ '/css/main.css' | url }}">
+  <link rel="stylesheet" href="{{ '/css/header.css' | url }}">
+{% endblock %}
 
+{% capture logo %}{% include 'crofts-accountants.svg' %}{% endcapture %}
 {% capture open %}{% faSvg 'bars.svg' %}{% endcapture %}
 {% capture close %}{% faSvg 'times.svg' %}{% endcapture %}
 {% header header, logo=logo, iconOpen=open, iconClose=close %}
