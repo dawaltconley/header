@@ -19,10 +19,10 @@
   ],
   "scripts": {
     "build": "npx gulp build",
-    "test": "npx gulp eleventy; npx @11ty/eleventy",
-    "serve": "npx gulp eleventyWatch & npx @11ty/eleventy --serve",
+    "test": "npx gulp eleventy",
+    "serve": "npx gulp dev",
     "document": "npx documentation readme index.mjs dist/js/browser.mjs --pe cjs --section Components --markdown-toc-max-depth 2",
-    "prepublishOnly": "rm -r dist; npm run build; npm run test"
+    "prepublishOnly": "rm -r dist; npm run test"
   },
   "author": "Dylan Awalt-Conley",
   "license": "ISC",

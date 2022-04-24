@@ -1,4 +1,5 @@
 const fsp = require('fs').promises;
+const { spawn } = require('child_process');
 const dot = require('dot');
 const gulp = require('gulp');
 const rename = require('gulp-rename');
@@ -37,16 +38,53 @@ const buildPackage = gulp.parallel(dotCompile, sassCompile, sassCopy, jsCompile)
 
 exports.build = buildPackage;
 
+const eleventy = (args, cb) => {
+  let cmd = spawn('npx', ['@11ty/eleventy', ...args]);
+  cmd.on('close', cb);
+  cmd.stdout.pipe(process.stdout);
+  cmd.stderr.pipe(process.stderr);
+};
+
+const eleventyBuild = eleventy.bind(null, []);
+const eleventyWatch = eleventy.bind(null, ['--watch']);
 const eleventySass = () => gulp.src('eleventy/_sass/*.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('eleventy/_site/css/sass'));
 
-const eleventyWatch = () => {
-    gulp.watch('src/_header.scss', gulp.series(sassCompile, eleventySass));
+const devWatch = () => {
+    gulp.watch('src/**/*.{scss,sass}', gulp.series(
+        gulp.parallel(sassCompile, sassCopy),
+        eleventySass
+    ));
+    gulp.watch('eleventy/_sass/*scss', eleventySass);
     gulp.watch('src/js/**/*', jsCompile);
-    return gulp.watch('eleventy/_sass/*scss', eleventySass);
 };
 
-exports.eleventy = gulp.series(buildPackage, eleventySass);
+const serve = () => {
+    const browserSync = require('browser-sync').create();
+    browserSync.init({
+        server: { baseDir: 'eleventy/_site/' },
+        watch: true,
+        port: 8080,
+        open: false,
+        notify: false,
+    });
+};
 
-exports.eleventyWatch = gulp.series(buildPackage, eleventySass, eleventyWatch);
+exports.eleventy = gulp.series(
+    buildPackage,
+    gulp.parallel(
+        eleventyBuild,
+        eleventySass
+    )
+);
+
+exports.dev = gulp.series(
+    buildPackage,
+    eleventySass,
+    gulp.parallel(
+        eleventyWatch,
+        devWatch,
+        serve
+    )
+);
