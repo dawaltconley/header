@@ -1,52 +1,51 @@
 @use 'sass:color';
 @use 'utils';
 
+$background-color: null !default;
+$text-color: null !default;
+$theme: light !default;
+$transition: null !default;
+$mobile: 600px;
+
 // TODO: divide into mixins for
 // layout, different hover effects / color schemes
-@mixin styles($color: null, $theme: light, $height: null, $padding: null, $mobile: 600px, $transition: .3s .25s) {
-    // color
-    $bg-color: utils.nth-or($color, 1);
-    $text-color: utils.nth-or($color, 2);
+@mixin styles($color: $background-color $text-color, $height: 56px, $mobile: $mobile, $transition: $transition, $legacy-fallback: null) {
+    $background-color: utils.nth-or($color, 1) !global;
+    $text-color: utils.nth-or($color, 2) !global;
+    $transition: $transition !global;
+    $mobile: $mobile !global;
 
-    $fallback-color: black;
-    @if utils.is-color($bg-color) and utils.is-color($text-color) and color.lightness($bg-color) < color.lightness($text-color)
-    or utils.is-color($bg-color) and color.lightness($bg-color) < 50%
-    or utils.is-color($text-color) and color.lightness($text-color) > 50%
-    or $theme == dark {
-        $fallback-color: white;
+    // properties
+    @if $height {
+        --header-height: #{$height};
     }
-
-    $mix-color: utils.is-color($text-color) and $text-color or $fallback-color;
-    $bg-color-dark: rgba($mix-color, 0.16);
-    @if utils.is-color($bg-color) {
-        $bg-color-dark: color.mix($mix-color, $bg-color, 16%);
+    @if $background-color {
+        --background-color: #{$background-color};
     }
-
-    // transitions
-    $t-dropdown: utils.nth-or($transition, 1, .3s);
-    $t-link: utils.nth-or($transition, 2, $t-dropdown);
+    @if $text-color {
+        --text-color: #{$text-color};
+    }
+    @if $transition {
+        --transition: #{$transition};
+    }
 
     position: relative;
     width: 100%;
-    height: $height;
     text-align: left;
-    color: $text-color;
-    background-color: $bg-color;
+    height: $legacy-fallback and $height;
+    height: var(--header-height);
+    color: $legacy-fallback and $text-color or inherit;
+    color: var(--text-color, inherit);
+    background-color: $legacy-fallback and $background-color or inherit;
+    background-color: var(--background-color, inherit);
 
     &, & * {
         box-sizing: border-box;
     }
 
-    & a {
-        text-decoration: none;
-        color: $text-color or inherit;
-        fill: $text-color or inherit;
-    }
-
     &__nav {
         width: 100%;
         height: 100%;
-        margin: 0;
         background-color: inherit;
     }
 
@@ -77,7 +76,7 @@
         @include utils.flex-row(center);
 
         & svg {
-            height: 1.2em;
+            height: 1em;
         }
     }
 
@@ -89,23 +88,18 @@
         display: none;
     }
 
-
     &__links { // data-menu-links
         position: absolute;
         left: 0; top: 100%;
         width: 100%;
         max-height: 0;
-        background-color: $bg-color or inherit;
+        background-color: $legacy-fallback and $background-color or inherit;
+        background-color: var(--background-color, inherit);
         overflow: hidden;
-        transition-duration: $t-dropdown; // TODO should change based on js or pure css
+        transition-duration: $legacy-fallback and $transition;
+        transition-duration: var(--transition); // TODO should change based on js or pure css
         transition-property: max-height;
         transition-timing-function: ease-out;
-
-        & > * {
-            width: 100%;
-            margin-bottom: 2px;
-        }
-
     }
 
     &__nav--target:target &__links {
@@ -114,26 +108,22 @@
 
     &__link-container {
         position: relative;
-        background-color: inherit;
+        background-color: if($background-color, null, inherit);
         height: 100%;
     }
 
     &__dropdown {
         min-width: 100%;
-        background-color: inherit;
+        background-color: $legacy-fallback and $background-color or inherit;
+        background-color: var(--background-color, inherit);
     }
 
     &__link { // data-menu-link
         display: block;
         height: auto;
-        background-color: $bg-color-dark;
+        background-color: $legacy-fallback and $background-color or inherit;
+        background-color: var(--background-color, inherit);
         white-space: nowrap;
-        transition-property: background-color;
-        transition-duration: $t-link; // TODO different variable for link transitions
-
-        &:hover {
-            background-color: color.mix($mix-color, $bg-color-dark, 16%);
-        }
     }
 
     @media screen and (min-width: utils.plus-one($mobile)) {
@@ -174,19 +164,79 @@
             @include utils.flex-row(center);
             height: 100%;
             cursor: pointer;
-            background-color: $bg-color or inherit;
-
-            // TODO make hover classes easier to override one
-            // probably header__link:hover and header__link--mobile:hover
-            // or something like that
-            &:hover, &-container:hover &--dropdown {
-                background-color: $bg-color-dark;
-            }
 
             &--sub-link {
-                height: $height;
+                height: $legacy-fallback and $height;
+                height: var(--header-height);
             }
         }
 
+    }
+}
+
+// TODO make hover classes easier to override one
+// probably header__link:hover and header__link--mobile:hover
+// or something like that
+@mixin bg-shade($hover-color: null, $transition: $transition, $mobile: $mobile) {
+    $fallback-color: black;
+    @if utils.is-color($background-color) and utils.is-color($text-color) and color.lightness($background-color) < color.lightness($text-color)
+    or utils.is-color($background-color) and color.lightness($background-color) < 50%
+    or utils.is-color($text-color) and color.lightness($text-color) > 50%
+    or $theme == dark {
+        $fallback-color: white;
+    }
+    $mix-color: utils.is-color($text-color) and $text-color or $fallback-color;
+
+    @if not $hover-color {
+        $hover-color: rgba($mix-color, 0.16);
+        @if utils.is-color($background-color) {
+            $hover-color: color.mix($mix-color, $background-color, 16%);
+        }
+    }
+
+    --hover-color: #{$hover-color};
+
+    & a {
+        @if $text-color {
+            --text-color: #{$text-color};
+        }
+        &:link, &:visited, &:hover {
+            text-decoration: none;
+            color: $text-color or inherit;
+            color: var(--text-color, inherit);
+            fill: $text-color or inherit;
+            fill: var(--text-color, inherit);
+        }
+    }
+
+    &__links { // data-menu-links
+        & > * {
+            width: 100%;
+            margin-bottom: 2px;
+        }
+    }
+
+    &__link { // data-menu-link
+        --background-color: #{$hover-color};
+        --hover-color: #{color.mix($mix-color, $hover-color, 16%)};
+        background-color: var(--background-color, inherit);
+        transition-property: background-color;
+        transition-duration: $transition;
+        transition-duration: var(--transition);
+
+        &:hover {
+            background-color: $hover-color;
+            background-color: var(--hover-color);
+        }
+
+        @media screen and (min-width: utils.plus-one($mobile)) {
+            --background-color: #{$background-color};
+            --hover-color: #{$hover-color};
+
+            &-container:hover &--dropdown {
+                background-color: $hover-color;
+                background-color: var(--hover-color);
+            }
+        }
     }
 }
