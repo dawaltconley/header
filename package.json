@@ -40,10 +40,10 @@
     "gulp-sass": "^5.0.0",
     "js-yaml": "^3.14.1",
     "sass": "^1.36.0",
-    "stylelint": "^13.13.1",
-    "stylelint-config-recommended": "^5.0.0",
-    "stylelint-config-recommended-scss": "^4.3.0",
-    "stylelint-scss": "^3.20.1"
+    "stylelint": "^14.7.1",
+    "stylelint-config-recommended": "^7.0.0",
+    "stylelint-config-recommended-scss": "^6.0.0",
+    "stylelint-scss": "^4.2.0"
   },
   "dependencies": {
     "liquid-args": "^1.0.0"
