@@ -10,9 +10,9 @@
     @return $list and list.length($list) >= $n and list.nth($list, $n) or $or;
 }
 
-@function plus-one($n) {
+@function minus-one($n) {
     $test: meta.type-of($n) == number and math.compatible($n, 1px);
-    @return if($test, $n + 1px, calc(#{$n} + 1px));
+    @return if($test, $n - 1px, calc(#{$n} - 1px));
 }
 
 @mixin flex-row($align: null) {

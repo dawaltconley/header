@@ -126,7 +126,7 @@ $breakpoint: 600px;
         white-space: nowrap;
     }
 
-    @media screen and (min-width: utils.plus-one($breakpoint)) {
+    @media screen and (min-width: $breakpoint) {
         &__nav {
             @include utils.flex-row();
         }
@@ -183,7 +183,7 @@ $breakpoint: 600px;
     @if $header-mobile {
         --padding: #{$header-mobile};
         @if $header-desktop {
-            @media screen and (min-width: utils.plus-one($breakpoint)) {
+            @media screen and (min-width: $breakpoint) {
                 --padding: #{$header-desktop};
             }
         }
@@ -196,7 +196,7 @@ $breakpoint: 600px;
 
     &__link {
         --padding: #{$link-padding};
-        @media screen and (max-width: $breakpoint) {
+        @media screen and (max-width: utils.minus-one($breakpoint)) {
             &--sub-link {
                 --padding: #{$sub-link-padding};
             }
@@ -265,7 +265,7 @@ $breakpoint: 600px;
             background-color: var(--hover-color);
         }
 
-        @media screen and (min-width: utils.plus-one($breakpoint)) {
+        @media screen and (min-width: $breakpoint) {
             --background-color: #{$background-color};
             --hover-color: #{$hover-color};
 
