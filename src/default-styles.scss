@@ -1,48 +1,32 @@
 @use 'sass/header';
 
 .header {
-
     // TODO: when modularizing javascript,
     // set values through css property variable like --transition,
     // so that it can be changed with javascript
 
-    $padding: 60px;
-    --padding: #{$padding};
-    $height: 56px;
-    --height: #{$height};
-    $bg: white;
-    --background-color: #{$bg};
-    $lh: 2.2;
-    --line-height: #{$lh};
-    $z: 9;
-    --z-index: #{$z};
+    @include header.styles($color: white, $height: 56px);
 
-    @include header.styles();
+    --padding: 60px;
+    --line-height: 2.2;
+    --z-index: 9;
 
-    height: var(--height, $height);
-    padding-left: var(--padding, $padding);
-    padding-right: var(--padding, $padding);
-    background-color: var(--background-color, $bg);
-    line-height: var(--line-height, $lh);
-    z-index: var(--z-index, $z);
+    &, &__link, &__logo {
+        padding-left: var(--padding);
+        padding-right: var(--padding);
+    }
+    line-height: var(--line-height);
+    z-index: var(--z-index);
 
     &__link {
-        $padding: 15px;
-        --padding: #{$padding};
-        padding-left: var(--padding, $padding);
-        padding-right: var(--padding, $padding);
+        --padding: 15px;
 
         &--sub-link { // can be mq
-            $padding: $padding * 2;
-            --padding: #{$padding};
-            padding-left: var(--padding, $padding);
+            --padding: 30px;
         }
     }
 
     &__logo {
-        $padding: 5px;
-        --padding: #{$padding};
-        padding-top: var(--padding, $padding);
-        padding-bottom: var(--padding, $padding);
+        --padding: 5px;
     }
 }
