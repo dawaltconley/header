@@ -3,3 +3,5 @@ extends:
   - stylelint-config-recommended-scss
 plugins:
   - stylelint-scss
+rules:
+  string-quotes: single
