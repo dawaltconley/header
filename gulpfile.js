@@ -64,7 +64,10 @@ const serve = () => {
     const browserSync = require('browser-sync').create();
     browserSync.init({
         server: { baseDir: 'eleventy/_site/' },
-        watch: true,
+        files: [
+            'eleventy/_site/**/*',
+            'dist/**/*',
+        ],
         port: 8080,
         open: false,
         notify: false,
