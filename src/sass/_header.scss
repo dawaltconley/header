@@ -174,6 +174,42 @@ $mobile: 600px;
     }
 }
 
+@mixin padding($header: null, $link: 1em, $logo: null) {
+    $header-mobile: utils.nth-or($header, 1);
+    $header-desktop: utils.nth-or($header, 2);
+    $link-padding: utils.nth-or($link, 1);
+    $sub-link-padding: utils.nth-or($link, 2, $link-padding * 2);
+
+    @if $header-mobile {
+        --padding: #{$header-mobile};
+        @if $header-desktop {
+            @media screen and (min-width: utils.plus-one($mobile)) {
+                --padding: #{$header-desktop};
+            }
+        }
+    }
+
+    &, &__link {
+        padding-left: var(--padding);
+        padding-right: var(--padding);
+    }
+
+    &__link {
+        --padding: #{$link-padding};
+        @media screen and (max-width: $mobile) {
+            &--sub-link {
+                --padding: #{$sub-link-padding};
+            }
+        }
+    }
+
+    &__logo {
+        --padding: #{$logo};
+        padding-top: var(--padding);
+        padding-bottom: var(--padding);
+    }
+}
+
 // TODO make hover classes easier to override one
 // probably header__link:hover and header__link--mobile:hover
 // or something like that

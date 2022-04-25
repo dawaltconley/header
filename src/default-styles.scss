@@ -5,28 +5,12 @@
     // set values through css property variable like --transition,
     // so that it can be changed with javascript
 
-    @include header.styles($color: white, $height: 56px);
+    @include header.styles($color: white, $height: 56px, $mobile: 640px, $transition: 0.3s);
+    @include header.padding($header: 30px 60px, $link: 15px 30px, $logo: 5px);
 
-    --padding: 60px;
     --line-height: 2.2;
     --z-index: 9;
 
-    &, &__link, &__logo {
-        padding-left: var(--padding);
-        padding-right: var(--padding);
-    }
     line-height: var(--line-height);
     z-index: var(--z-index);
-
-    &__link {
-        --padding: 15px;
-
-        &--sub-link { // can be mq
-            --padding: 30px;
-        }
-    }
-
-    &__logo {
-        --padding: 5px;
-    }
 }
