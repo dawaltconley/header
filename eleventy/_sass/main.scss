@@ -10,7 +10,7 @@
     line-height: 2.2;
     z-index: 9;
 
-    @include header.styles($color: #333 white, $height: 56px, $transition: 0.3s);
+    @include header.base($color: #333 white, $height: 56px, $transition: 0.3s);
     @include header.bg-shade;
 
     &__link {

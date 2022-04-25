@@ -5,7 +5,7 @@
     // set values through css property variable like --transition,
     // so that it can be changed with javascript
 
-    @include header.styles($color: white, $height: 56px, $mobile: 640px, $transition: 0.3s);
+    @include header.base($color: white, $height: 56px, $breakpoint: 640px, $transition: 0.3s);
     @include header.padding($header: 30px 60px, $link: 15px 30px, $logo: 5px);
 
     --line-height: 2.2;

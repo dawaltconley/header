@@ -5,15 +5,15 @@ $background-color: null !default;
 $text-color: null !default;
 $theme: light !default;
 $transition: null !default;
-$mobile: 600px;
+$breakpoint: 600px;
 
 // TODO: divide into mixins for
 // layout, different hover effects / color schemes
-@mixin styles($color: $background-color $text-color, $height: 56px, $mobile: $mobile, $transition: $transition, $legacy-fallback: null) {
+@mixin base($color: $background-color $text-color, $height: 56px, $breakpoint: $breakpoint, $transition: $transition, $legacy-fallback: null) {
     $background-color: utils.nth-or($color, 1) !global;
     $text-color: utils.nth-or($color, 2) !global;
     $transition: $transition !global;
-    $mobile: $mobile !global;
+    $breakpoint: $breakpoint !global;
 
     // properties
     @if $height {
@@ -126,7 +126,7 @@ $mobile: 600px;
         white-space: nowrap;
     }
 
-    @media screen and (min-width: utils.plus-one($mobile)) {
+    @media screen and (min-width: utils.plus-one($breakpoint)) {
         &__nav {
             @include utils.flex-row();
         }
@@ -183,7 +183,7 @@ $mobile: 600px;
     @if $header-mobile {
         --padding: #{$header-mobile};
         @if $header-desktop {
-            @media screen and (min-width: utils.plus-one($mobile)) {
+            @media screen and (min-width: utils.plus-one($breakpoint)) {
                 --padding: #{$header-desktop};
             }
         }
@@ -196,7 +196,7 @@ $mobile: 600px;
 
     &__link {
         --padding: #{$link-padding};
-        @media screen and (max-width: $mobile) {
+        @media screen and (max-width: $breakpoint) {
             &--sub-link {
                 --padding: #{$sub-link-padding};
             }
@@ -213,7 +213,7 @@ $mobile: 600px;
 // TODO make hover classes easier to override one
 // probably header__link:hover and header__link--mobile:hover
 // or something like that
-@mixin bg-shade($hover-color: null, $transition: $transition, $mobile: $mobile) {
+@mixin bg-shade($hover-color: null, $transition: $transition, $breakpoint: $breakpoint) {
     $fallback-color: black;
     @if utils.is-color($background-color) and utils.is-color($text-color) and color.lightness($background-color) < color.lightness($text-color)
     or utils.is-color($background-color) and color.lightness($background-color) < 50%
@@ -265,7 +265,7 @@ $mobile: 600px;
             background-color: var(--hover-color);
         }
 
-        @media screen and (min-width: utils.plus-one($mobile)) {
+        @media screen and (min-width: utils.plus-one($breakpoint)) {
             --background-color: #{$background-color};
             --hover-color: #{$hover-color};
 

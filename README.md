@@ -49,7 +49,7 @@ The `dist/header.css` file contains minimal styles that can be used without Scss
 @use '@dawaltconley/header-basic';
 
 .header-class {
-  @include header-basic.styles($color: #333 white, $transition: .3s .25s);
+  @include header-basic.base($color: #333 white, $transition: .3s .25s);
 }
 ```
 
