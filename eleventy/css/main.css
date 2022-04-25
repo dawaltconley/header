@@ -47,6 +47,18 @@ main {
     background-color: #d1fae6;
 }
 
+:link {
+    color: inherit;
+    text-decoration: none;
+}
+:visited {
+    color: purple;
+}
+a:hover {
+    color: royalblue;
+    text-decoration: underline;
+}
+
 @media screen and (max-width: 600px) {
     .header {
         --padding: 30px;

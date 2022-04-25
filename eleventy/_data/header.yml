@@ -1,14 +1,14 @@
 links:
-  - text: Home
+  - text: Nunjucks
     page: '/'
-  - text: About
-    page: '/about/'
-  - text: Dropdown
+  - text: Liquid
+    page: '/liquid/'
+  - text: Stylesheets
     dropdown:
-      - text: Drop 1
-        page: '/foo/'
-      - text: Drop 2
-        page: '/bar/'
+      - text: CSS
+        page: '/'
+      - text: Sass
+        page: '/sass/'
 logo:
   src: 'http://pigment.github.io/fake-logos/logos/small/color/greens-food-suppliers.png'
   # src: 'http://pigment.github.io/fake-logos/logos/vector/color/crofts-accountants.svg'
