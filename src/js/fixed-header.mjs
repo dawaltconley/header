@@ -11,8 +11,12 @@ class FixedHeader {
     constructor(header, options={}) {
         const { scrollable } = options;
         const e = header.cloneNode(true);
+        const scrollingElement = document.scrollingElement || document.documentElement;
+
         this.element = e;
-        this.scrollable = scrollable || getScrollableParent(header) || document.documentElement;
+        this.scrollable = scrollable || getScrollableParent(header) || scrollingElement;
+        this.scrollTarget = this.scrollable !== scrollingElement
+            ? this.scrollable : window;
         this.headerRef = header;
         this.pos = this.scrollPos;
         this.refPos = this.pagePosition();
@@ -99,20 +103,19 @@ class FixedHeader {
 
     /** Remove scroll listeners */
     disableScroll() {
-        window.removeEventListener('scroll', this.scrollListener); // TODO check if need to target different element on paralax pages
+        this.scrollTarget.removeEventListener('scroll', this.scrollListener); // TODO check if need to target different element on paralax pages
     }
 
     /** Enable scroll listeners */
     enableScroll() {
         this.pos = this.scrollPos;
-        window.addEventListener('scroll', this.scrollListener, { passive: true }); // TODO check if need to target different element on paralax pages
+        this.scrollTarget.addEventListener('scroll', this.scrollListener, { passive: true }); // TODO check if need to target different element on paralax pages
     }
 
     /** Hide the fixed header (usually when returning to the top of the document and using the reference header). */
     hide() {
-        const target = this.scrollable !== document.scrollingElement ? this.scrollable : window;
         this.disableScroll();
-        onScrollEnd(() => this.enableScroll(), { target });
+        onScrollEnd(() => this.enableScroll(), { target: this.scrollTarget });
         this.slideUp();
         if (this.menu && this.menu.state === 'open') {
             this.menu.close();
